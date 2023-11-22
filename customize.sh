@@ -1,5 +1,7 @@
 ui_print " -------------------------- "
 ui_print " ------ 安装中，请稍等 ------ "
+
+ARCH=$(getprop ro.product.cpu.abi)
 ui_print "获取设备的架构: $ARCH"
 
 if [ "$ARCH" = "arm64-v8a" ]; then
