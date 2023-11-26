@@ -25,8 +25,8 @@ dns:
   upstream_dns:
     - https://223.5.5.5/dns-query
     - https://223.6.6.6/dns-query
-    - https://119.28.28.28/dns-query
-    - https://119.29.29.29/dns-query
+    - https://1.12.12.12/dns-query
+    - https://120.53.53.53/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
     - 9.9.9.10
