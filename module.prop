@@ -1,6 +1,7 @@
 id=AdGuardHome
 name=AdGuardHome For Magisk
-version=20231126
-versionCode=2
+version=20231127
+versionCode=3
 author=top大佬(酷安)/twoone3
 description=通过DNS层面过滤广告、防DNS劫持，后台地址http://127.0.0.1:3000，用户名/密码root
+updateUrl=https://raw.githubusercontent.com/twoone-3/AdguardHome/main/update.json
