@@ -1,8 +1,11 @@
 # Adguard Home for Magisk
 
+![Static Badge](https://img.shields.io/badge/arm--64-support-blue)
+![GitHub all releases](https://img.shields.io/github/downloads/twoone-3/AdguardHome/total)
+
 > 在 Magisk 上运行 Adguard Home 程序
 
-使用前需关闭私人dns，不可用wap接入点，AdGuard Home后台管理地址http://127.0.0.1:3000，用户名/密码root (若面具页面显示运行中，但无法打开后台，则可能是系统被精简web服务相关导致，或者换浏览器试下)，本机流量数据或wifi都支持过滤，AdGuard Home后台有数据变化代表模块生效，以下所有配置参数修改即时生效，无需重启。
+使用前需关闭私人dns，不可用wap接入点，AdGuard Home后台管理地址http://127.0.0.1:3000，用户名/密码root (若面具页面显示运行中，但无法打开后台，则可能是系统被精简web服务相关导致，或者换浏览器试下)，本机流量数据或wifi都支持过滤，AdGuard Home后台有数据变化代表模块生效。
 
 # ↓↓↓特殊使用环境说明↓↓↓
 
@@ -12,10 +15,10 @@
 
 3. 翻墙类Magisk模块：AdGuard Home后台里的DNS上游需全部删除，加一条：127.0.0.1:X (X是翻墙模块的监听端口)，才可以使用。
 
-4. 模块默认监听端口为5591，若你有特殊需求，可在AdGuardHome.yaml文件修改  port: 5591 需要重启生效。(注意：若使用53端口，则无法开启热点)
+4. 模块默认监听端口为5591，若你有特殊需求，可在AdGuardHome.yaml文件修改 port: 5591 需要重启生效。(注意：若使用53端口，则无法开启热点)
 
 5. 模块默认仅支持本机打开后台，若你需要同局域网其它设备打开后台，可在AdGuardHome.yaml文件修改  address: 127.0.0.1:3000为  address: 0.0.0.0:3000 需要重启生效
 
 # 为什么要做这个模块
 
-> 这个模块是由topdalao制作的模块改版的，经过了一番研究，我精简掉了大部分代码，更换了默认规则，二改有着更好的性能，且不会强制更新（后续会加上magisk自带的更新链接），该模块仅供学习交流，如各路大神有好的建议欢迎指出！
+> 这个模块是由topdalao制作的[AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)改版的，经过了一番研究，我精简掉了大部分代码，更换了默认规则，二改有着更好的性能，且不会强制更新（后续会加上magisk自带的更新链接），该模块仅供学习交流，如各路大神有好的建议欢迎指出！
