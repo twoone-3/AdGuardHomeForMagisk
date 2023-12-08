@@ -1,6 +1,6 @@
 {
-    "versionCode": 3,
-    "version": "20231127",
-    "zipUrl": "https://github.com/twoone-3/AdguardHome/releases/download/20231127/AdguardHome.zip",
+    "versionCode": 4,
+    "version": "20231208",
+    "zipUrl": "https://github.com/twoone-3/AdguardHome/releases/download/20231208/AdguardHome.zip",
     "changelog": "https://raw.githubusercontent.com/twoone-3/AdguardHome/main/changelog.md"
 }

@@ -3,7 +3,7 @@ until [ $(getprop sys.boot_completed) ]; do
 done
 MODDIR=${0%/*}
 chmod +x "$MODDIR/AdGuardHome"
-"$MODDIR/AdGuardHome" > /dev/null 2>&1 &
+"$MODDIR/AdGuardHome" >/dev/null 2>&1 &
 # 读取配置文件的端口
 port_yaml="$(cat "$MODDIR/AdGuardHome.yaml" | egrep '^  port: ' | sed -n 's/  port: //g;s/ //g;$p')"
 # 新建规则链

@@ -29,10 +29,7 @@ dns:
     - https://120.53.53.53/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
-    - 9.9.9.10
-    - 149.112.112.10
-    - 2620:fe::10
-    - 2620:fe::fe:10
+    - 127.0.0.1
   fallback_dns: []
   all_servers: false
   fastest_addr: false
@@ -49,7 +46,7 @@ dns:
   cache_size: 4194304
   cache_ttl_min: 300
   cache_ttl_max: 3600
-  cache_optimistic: true
+  cache_optimistic: false
   bogus_nxdomain: []
   aaaa_disabled: false
   enable_dnssec: false
@@ -70,6 +67,7 @@ dns:
   dns64_prefixes: []
   serve_http3: false
   use_http3_upstreams: false
+  serve_plain_dns: true
 tls:
   enabled: false
   server_name: ""
