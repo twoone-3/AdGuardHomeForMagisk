@@ -23,18 +23,17 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-    - 114.114.114.114
-    - 223.5.5.5
-    - 180.76.76.76
-    - 119.29.29.29
+    - https://223.5.5.5/dns-query
+    - https://1.12.12.12/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
-    - 9.9.9.10
-    - 149.112.112.10
-    - 2620:fe::10
-    - 2620:fe::fe:10
-  fallback_dns: []
-  all_servers: false
+    - 127.0.0.1
+  fallback_dns:
+    - https://223.6.6.6/dns-query
+    - https://120.53.53.53/dns-query
+    - https://8.8.8.8/dns-query
+    - https://1.1.1.1/dns-query
+  all_servers: true
   fastest_addr: false
   fastest_timeout: 1s
   allowed_clients: []
@@ -46,10 +45,10 @@ dns:
   trusted_proxies:
     - 127.0.0.0/8
     - ::1/128
-  cache_size: 4194304
+  cache_size: 33554432
   cache_ttl_min: 300
   cache_ttl_max: 3600
-  cache_optimistic: false
+  cache_optimistic: true
   bogus_nxdomain: []
   aaaa_disabled: false
   enable_dnssec: false
@@ -88,7 +87,7 @@ tls:
   strict_sni_check: false
 querylog:
   ignored: []
-  interval: 6h
+  interval: 1h
   size_memory: 1000
   enabled: true
   file_enabled: true
@@ -102,7 +101,9 @@ filters:
     name: 秋风广告规则
     id: 1700480708
 whitelist_filters: []
-user_rules: []
+user_rules:
+  - '@@||pglstatp-toutiao.com^$important'
+  - ""
 dhcp:
   enabled: false
   interface_name: ""
@@ -144,8 +145,8 @@ filtering:
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576
   cache_time: 30
-  filters_update_interval: 24
-  blocked_response_ttl: 10
+  filters_update_interval: 72
+  blocked_response_ttl: 30
   filtering_enabled: true
   parental_enabled: false
   safebrowsing_enabled: false
