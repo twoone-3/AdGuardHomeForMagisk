@@ -1,15 +1,13 @@
-# Adguard Home for Magisk
-> 在 Magisk 上运行 Adguard Home 程序
+# AdGuardHome for Magisk
+> 一个通过过滤DNS请求来屏蔽广告的 Magisk 模块，也能防止DNS污染，无需配置，在 Magisk 里安装重启即可使用，使用前需关闭私人dns，AdGuardHome 后台管理地址为 http://127.0.0.1:3000，用户名/密码root
 
 ![Static Badge](https://img.shields.io/badge/arm--64-support-blue)
 ![GitHub all releases](https://img.shields.io/github/downloads/twoone-3/AdguardHome/total)
-[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0.svg?logo=telegram&logoColor=white)](https://t.me/adguardhome_for_magisk_release)
 
-# 这是什么？
-> 一个通过过滤DNS请求来屏蔽广告的magisk模块，也能防止DNS污染，无需配置，在magisk里安装重启即可使用，使用前需关闭私人dns，AdGuard Home后台管理地址http://127.0.0.1:3000，用户名/密码root
+加入我们的 [Telegram](https://t.me/adguardhome_for_magisk_release) 频道获取最新信息
 
-# Features
-- DNS上游为DoH，快速稳定
+# 特性
+- DNS上游为DoH，稳定，减少污染
 - 仅内置[秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)，省电，不误杀
 
 # 特殊使用环境说明
