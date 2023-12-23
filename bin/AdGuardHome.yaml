@@ -23,16 +23,15 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-    - https://223.5.5.5/dns-query
-    - https://1.12.12.12/dns-query
+    - tls://dot.pub
+    - tls://dns.alidns.com
   upstream_dns_file: ""
   bootstrap_dns:
-    - 127.0.0.1
+    - 223.5.5.5
+    - 119.29.29.29
   fallback_dns:
-    - https://223.6.6.6/dns-query
-    - https://120.53.53.53/dns-query
-    - https://8.8.8.8/dns-query
-    - https://1.1.1.1/dns-query
+    - tls://dns.google
+    - tls://1dot1dot1dot1.cloudflare-dns.com
   all_servers: true
   fastest_addr: false
   fastest_timeout: 1s
@@ -46,8 +45,8 @@ dns:
     - 127.0.0.0/8
     - ::1/128
   cache_size: 33554432
-  cache_ttl_min: 300
-  cache_ttl_max: 3600
+  cache_ttl_min: 0
+  cache_ttl_max: 0
   cache_optimistic: true
   bogus_nxdomain: []
   aaaa_disabled: false
@@ -101,9 +100,7 @@ filters:
     name: 秋风广告规则
     id: 1700480708
 whitelist_filters: []
-user_rules:
-  - '@@||pglstatp-toutiao.com^$important'
-  - ""
+user_rules: []
 dhcp:
   enabled: false
   interface_name: ""
@@ -137,7 +134,7 @@ filtering:
     pixabay: true
     yandex: true
     youtube: true
-  blocking_mode: null_ip
+  blocking_mode: default
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
   rewrites: []
@@ -146,7 +143,7 @@ filtering:
   parental_cache_size: 1048576
   cache_time: 30
   filters_update_interval: 72
-  blocked_response_ttl: 30
+  blocked_response_ttl: 10
   filtering_enabled: true
   parental_enabled: false
   safebrowsing_enabled: false

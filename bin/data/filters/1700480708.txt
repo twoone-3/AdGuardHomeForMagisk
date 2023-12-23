@@ -95,6 +95,7 @@
 ||analytics.pinterest.com^
 ||analytics.rayjump.com^
 ||analytics.tiktok.com^
+||analytics.woozooo.com^
 ||analyze.lemurbrowser.com^
 ||api-access.pangolin-sdk-toutiao*.com^
 ||api-access.pangolin-sdk-toutiao.com3^
@@ -284,14 +285,17 @@
 ||mon.snssdk.com^
 ||monitor.music.qq.com^
 ||monitor.uu.qq.com^
+||mp.weixin.qq.com/mp/getappmsgad^
 ||mtj.baidu.com^
 ||nmetrics.samsung.com^
 ||notes-analytics-events.apple.com^
 ||nsclick.baidu.com^
 ||o2o.api.xiaomi.com^
-||offerwall.yandex.net^||open.e.kuaishou.cn^
+||offerwall.yandex.net^
+||open.e.kuaishou.cn^
 ||open.e.kuaishou.com^
 ||open.kuaishouzt.com^
+||open.kwaishouzt.com^
 ||open.kwaizt.com^
 ||optimus-ads.amap.com^
 ||oth.eve.mdt.qq.com^
@@ -375,7 +379,8 @@
 ||tdc.qq.com^
 ||tdid.m.qq.com^
 ||test.ad.xiaomi.com^
-||test.e.ad.xiaomi.com^||tj.b.qq.com^
+||test.e.ad.xiaomi.com^
+||tj.b.qq.com^
 ||tj.video.qq.com^
 ||tmead.y.qq.com^
 ||tmfsdk.m.qq.com^
