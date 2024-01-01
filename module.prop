@@ -1,6 +1,6 @@
 id=AdGuardHome
 name=AdGuardHome for Magisk
-version=20231223
-versionCode=8
+version=20240101
+versionCode=9
 author=twoone3
-description=通过DNS层面过滤广告、防DNS劫持，后台地址http://127.0.0.1:3000，用户名/密码root
+description=Filter ads at the DNS level

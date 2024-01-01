@@ -23,16 +23,17 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-    - tls://dot.pub
-    - tls://dns.alidns.com
+    - tls://1.12.12.12
+    - tls://223.5.5.5
+    - tls://120.53.53.53
+    - tls://223.6.6.6
   upstream_dns_file: ""
   bootstrap_dns:
-    - 223.5.5.5
-    - 119.29.29.29
+    - 0.0.0.0
   fallback_dns:
-    - tls://dns.google
-    - tls://1dot1dot1dot1.cloudflare-dns.com
-  all_servers: true
+    - tls://1.1.1.1
+    - tls://8.8.8.8
+  all_servers: false
   fastest_addr: false
   fastest_timeout: 1s
   allowed_clients: []
@@ -86,7 +87,7 @@ tls:
   strict_sni_check: false
 querylog:
   ignored: []
-  interval: 1h
+  interval: 6h
   size_memory: 1000
   enabled: true
   file_enabled: true
@@ -143,7 +144,7 @@ filtering:
   parental_cache_size: 1048576
   cache_time: 30
   filters_update_interval: 72
-  blocked_response_ttl: 10
+  blocked_response_ttl: 30
   filtering_enabled: true
   parental_enabled: false
   safebrowsing_enabled: false
