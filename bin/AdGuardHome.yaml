@@ -23,18 +23,16 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-    - https://1.12.12.12/dns-query
-    - https://120.53.53.53/dns-query
-    - https://223.5.5.5/dns-query
-    - https://223.6.6.6/dns-query
+    - '#https://1.12.12.12/dns-query'
+    - '#https://120.53.53.53/dns-query'
+    - '#https://223.5.5.5/dns-query'
+    - '#https://223.6.6.6/dns-query'
+    - 223.5.5.5
   upstream_dns_file: ""
   bootstrap_dns:
-    - 9.9.9.10
-    - 149.112.112.10
-    - 2620:fe::10
-    - 2620:fe::fe:10
+    - 0.0.0.0
   fallback_dns:
-    - https://1.1.1.1/dns-query
+    - '#https://1.1.1.1/dns-query'
   upstream_mode: load_balance
   fastest_timeout: 1s
   allowed_clients: []
@@ -71,6 +69,7 @@ dns:
   serve_http3: false
   use_http3_upstreams: false
   serve_plain_dns: true
+  hostsfile_enabled: true
 tls:
   enabled: false
   server_name: ""
@@ -87,20 +86,22 @@ tls:
   private_key_path: ""
   strict_sni_check: false
 querylog:
+  dir_path: ""
   ignored: []
   interval: 6h
   size_memory: 1000
   enabled: true
   file_enabled: true
 statistics:
+  dir_path: ""
   ignored: []
   interval: 24h
   enabled: true
 filters:
   - enabled: true
-    url: https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/AWAvenue-Ads-Rule.txt
+    url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt
     name: 秋风广告规则
-    id: 1700480708
+    id: 10086
 whitelist_filters: []
 user_rules: []
 dhcp:
