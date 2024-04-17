@@ -24,23 +24,7 @@ Anywhere停止链接
 anywhere://share/J2VP8X5qVhbI2sRvhZ2hdp4467QzpcHDlkAQil7Mg6oDOLdzYgAJO+9fKKenP2M28XWZ71jveGDq1E/sCmMAhBqd5N04LZkJp0EYtrFp7Vw9xPsYBhlmwlaKWljr9iIAMGWOulpW7Zzhm/tpfaDIKjweOGfIsONgcoWq89Idmb215WTrhfju+OeoNqDicBqrOLI5iyI8fTCQifRm7m7hq53WMgN/BoYbWnyE34AeVO2hq5btVggCTBGunrftXnlweSY4ngaN8CmhTlDWQeyjMJRZMooTPHwcQm3fisvBY6McMaVV5lSLHBe+MNaK1EwnzQ0RjNJh/3eoVGQJgUUyN8swAmtakrwaNA==
 ```
 
-# 原理
-本插件实现方法非常简单，利用了iptables进行流量转发，将53端口的流量转发到5591也就是本插件设置的AdGuardHome端口
-
-- apply_iptables.sh 片段
-```sh
-# 返回所有 AdGuardHome 的请求
-iptables -t nat -A ADGUARD -m owner --uid-owner root --gid-owner net_admin -j RETURN
-# 将 53 端口所有 udp tcp 流量转发到 adguard home
-iptables -t nat -A ADGUARD -p udp --dport 53 -j REDIRECT --to-ports 5591
-iptables -t nat -A ADGUARD -p tcp --dport 53 -j REDIRECT --to-ports 5591
-```
-- service.sh 片段
-```sh
-setuidgid root:net_admin "$ADG_DIR/AdGuardHome" &
-```
-
-其将AdGuardHome程序的用户设置为net_admin，然后在规则排除掉net_admin的请求（否则会导致网络回环）
 # 鸣谢
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)
 - [akashaProxy](https://github.com/ModuleList/akashaProxy)
+- [box_for_magisk](https://github.com/taamarin/box_for_magisk)
