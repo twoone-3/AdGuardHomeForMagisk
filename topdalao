@@ -1,0 +1,270 @@
+MODDIR=${0%/*}
+mode_conf="$(cat "$MODDIR/mode.conf")"
+Lock_sleep="$(echo "$mode_conf" | egrep '^Lock_sleep=' | sed -n 's/.*=//g;$p')"
+screen_on="$(dumpsys deviceidle get screen)"
+if [ "$Lock_sleep" = "1" -a "$screen_on" = "false" ]; then
+	iptables -t nat -F TOPHOME
+	exit 0
+fi
+AdGuardHome_sh="$(ps -ef | egrep 'AdGuardHome')"
+if [ ! -n "$AdGuardHome_sh" ]; then
+	exit 0
+fi
+AdGuardHome_id="$(pgrep 'AdGuardHome' | wc -l)"
+if [ -f "$MODDIR/disable" ]; then
+	iptables -t nat -F TOPHOME
+	if [ "$AdGuardHome_id" != "0" ]; then
+		pkill 'AdGuardHome'
+	fi
+	sed -i 's/\[.*\]/\[ 已关闭 \]/g' "$MODDIR/module.prop"
+	exit 0
+fi
+if [ -f "$MODDIR/stop" ]; then
+	iptables -t nat -F TOPHOME
+	sed -i 's/\[.*\]/\[ 暂停过滤 \]/g' "$MODDIR/module.prop"
+	exit 0
+fi
+if [ "$AdGuardHome_id" != "1" ]; then
+	iptables -t nat -F TOPHOME
+	if [ "$AdGuardHome_id" = "0" ]; then
+		AdGuardHome_byte="$(cat "$MODDIR/AdGuardHome" | wc -c)"
+		if [ "$AdGuardHome_byte" -lt "15000000" ]; then
+			sed -i "s/\[.*\]/\[ AdGuardHome文件过小(${AdGuardHome_byte}字节)，可能下载不完整或安装时解压出错，请重新下载安装本模块 \]/g" "$MODDIR/module.prop"
+		else
+			uname_m="$(uname -m)"
+			sed -i "s/\[.*\]/\[ 主程序未启动，请稍等！如果超过1分钟未启动，则可能是AdGuardHome文件与当前系统架构${uname_m}不匹配、或可能是模块安装出错需重新安装、或可能是yaml配置文件错误、或可能是端口被占用、或可能是模块BUG \]/g" "$MODDIR/module.prop"
+		fi
+		"$MODDIR/AdGuardHome" > /dev/null 2>&1 &
+	else
+		sed -i 's/\[.*\]/\[ 正在关闭多余的主程序，请稍等！ \]/g' "$MODDIR/module.prop"
+		pkill 'AdGuardHome'
+	fi
+	exit 0
+fi
+if [ -f "$MODDIR/AdGuardHome.yaml" ]; then
+	AdHome_yaml="$(cat "$MODDIR/AdGuardHome.yaml" | egrep '^  parental_enabled: true$|^  safesearch_enabled: true$|^  safebrowsing_enabled: true$|^  all_servers: false$|^  fastest_addr: true$|^  upstream_mode: load_balance$|^  upstream_mode: fastest_addr$|^  blocking_mode: refused$|^  blocking_mode: nxdomain$|^  cache_ttl_min: ...*|^  cache_ttl_max: .....*' | wc -l)"
+	if [ "$AdHome_yaml" != "0" ]; then
+		iptables -t nat -F TOPHOME
+		sed -i 's/^  parental_enabled: true$/  parental_enabled: false/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  safesearch_enabled: true$/  safesearch_enabled: false/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  safebrowsing_enabled: true$/  safebrowsing_enabled: false/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  all_servers: false$/  all_servers: true/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  fastest_addr: true$/  fastest_addr: false/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  upstream_mode: load_balance$/  upstream_mode: parallel/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  upstream_mode: fastest_addr$/  upstream_mode: parallel/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  blocking_mode: refused$/  blocking_mode: null_ip/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  blocking_mode: nxdomain$/  blocking_mode: null_ip/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  cache_ttl_min: ...*/  cache_ttl_min: 0/g' "$MODDIR/AdGuardHome.yaml"
+		sed -i 's/^  cache_ttl_max: .....*/  cache_ttl_max: 300/g' "$MODDIR/AdGuardHome.yaml"
+		pkill 'AdGuardHome'
+		sed -i 's/\[.*\]/\[ 主程序正在重启，yaml，请稍等 \]/g' "$MODDIR/module.prop"
+		exit 0
+	fi
+	safe_search="$(cat "$MODDIR/AdGuardHome.yaml" | egrep -A1 -n '^  safe_search:$' | egrep '    enabled: true$' | sed -n 's/:.*//g;s/\-.*//g;s/ .*//g;$p')"
+	if [ "$safe_search" -gt "1" ]; then
+		iptables -t nat -F TOPHOME
+		sed -i "${safe_search} s/    enabled: true/    enabled: false/g" "$MODDIR/AdGuardHome.yaml"
+		pkill 'AdGuardHome'
+		sed -i 's/\[.*\]/\[ 主程序正在重启，search，请稍等 \]/g' "$MODDIR/module.prop"
+		exit 0
+	fi
+	upstream_dns="$(cat "$MODDIR/AdGuardHome.yaml" | egrep -n '^  upstream_dns:$' | sed -n 's/:.*//g;s/\-.*//g;s/ .*//g;$p')"
+	blocked_hosts="$(cat "$MODDIR/AdGuardHome.yaml" | egrep -n '^  blocked_hosts:$' | sed -n 's/:.*//g;s/\-.*//g;s/ .*//g;$p')"
+	upstream_dns_n="$(( $blocked_hosts - $upstream_dns ))"
+	if [ "$upstream_dns" -gt "1" -a "$upstream_dns_n" -gt "1" ]; then
+		dns_53="$(cat "$MODDIR/AdGuardHome.yaml" | egrep -A${upstream_dns_n} -n '^  upstream_dns:$' | egrep '    \- [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$|    \- [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:53$|    \- tcp:\/\/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$|    \- tcp:\/\/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:53$' | sed -n 's/:.*//g;s/\-.*//g;s/ .*//g;p')"
+		if [ -n "$dns_53" ]; then
+			dns_53_n="$(echo "$dns_53" | sed -n '$p')"
+			for i in $dns_53 ; do
+				if [ "$i" -gt "1" ]; then
+					sed -E -i "${i} s/    \- [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$//g" "$MODDIR/AdGuardHome.yaml"
+					sed -E -i "${i} s/    \- [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:53$//g" "$MODDIR/AdGuardHome.yaml"
+					sed -E -i "${i} s/    \- tcp:\/\/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$//g" "$MODDIR/AdGuardHome.yaml"
+					sed -E -i "${i} s/    \- tcp:\/\/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:53$//g" "$MODDIR/AdGuardHome.yaml"
+					if [ "$i" = "$dns_53_n" ]; then
+						iptables -t nat -F TOPHOME
+						pkill 'AdGuardHome'
+						sed -i 's/\[.*\]/\[ 主程序正在重启，dns，请稍等 \]/g' "$MODDIR/module.prop"
+						exit 0
+					fi
+				fi
+			done
+		fi
+	fi
+else
+	iptables -t nat -F TOPHOME
+	sed -i 's/\[.*\]/\[ 配置文件AdGuardHome.yaml不存在 \]/g' "$MODDIR/module.prop"
+	exit 0
+fi
+port_testing="$(echo "$mode_conf" | egrep '^port_testing=' | sed -n 's/.*=//g;$p')"
+if [ "$port_testing" != "0" ]; then
+	netstat_N="$(netstat -anp | egrep 'tcp|udp')"
+	if [ -n "$netstat_N" ]; then
+		AdHome_netstat="$(echo "$netstat_N" | egrep 'AdGuardHome' | wc -l)"
+		if [ "$AdHome_netstat" = "0" ]; then
+			iptables -t nat -F TOPHOME
+			sed -i 's/\[.*\]/\[ AdHome端口未启动，请稍等！如果超过1分钟未启动，请升级AdHome到最新版，或可能与其它模块冲突，请逐个关闭排查，或到mode.conf文件关闭AdHome端口启动检测 \]/g' "$MODDIR/module.prop"
+			exit 0
+		fi
+	fi
+fi
+private_dns_mode="$(settings get global private_dns_mode)"
+if [ "$private_dns_mode" = "opportunistic" -o "$private_dns_mode" = "hostname" ]; then
+	settings put global private_dns_mode off
+fi
+NetworkAgentInfo="$(dumpsys connectivity | egrep 'NetworkAgentInfo\{' | egrep -v 'extra: ims')"
+NetworkAgentInfo_MW="$(echo "$NetworkAgentInfo" | egrep 'NetworkAgentInfo\{' | sed -n 's/,.*//g;s/\;.*//g;s/extra:.*//g;s/DnsAddresses: \[.*//g;p' | egrep -v 'VPN' | wc -l)"
+if [ "$NetworkAgentInfo_MW" = "0" ]; then
+	exit 0
+fi
+Network="$(echo "$NetworkAgentInfo" | egrep 'type: WIFI|ni\{WIFI')"
+if [ -n "$Network" ]; then
+	WIFI_Dns="$(echo "$Network" | egrep 'type: WIFI|ni\{WIFI' | sed -n 's/.* DnsAddresses: \[//g;s/\].*//g;s/ //g;p')"
+	if [ ! -n "$WIFI_Dns" ]; then
+		Network="$(echo "$NetworkAgentInfo" | egrep 'type: MOBILE|ni\{MOBILE')"
+	fi
+else
+	Network="$(echo "$NetworkAgentInfo" | egrep 'type: MOBILE|ni\{MOBILE')"
+fi
+port_yaml="$(cat "$MODDIR/AdGuardHome.yaml" | egrep '^  port: ' | sed -n 's/  port: //g;s/ //g;$p')"
+HostDns="$(echo "$Network" | egrep 'NetworkAgentInfo\{' | sed -n 's/.* DnsAddresses: \[//g;s/\].*//g;s/ //g;s/\///g;s/,/\\n/g;p')"
+HostDns_3="$(echo -e "$HostDns" | egrep '\.' | egrep -v ':' | sed -n '3p')"
+I_network="$(echo "$mode_conf" | egrep '^I_network=' | sed -n 's/.*=//g;$p')"
+if [ "$I_network" = "1" ]; then
+	HostDns_1="$(echo -e "$HostDns" | egrep '\.' | egrep -v ':' | sed -n '1p')"
+elif [ "$I_network" = "2" ]; then
+	HostDns_1="$(echo -e "$HostDns" | egrep '\.' | egrep -v ':' | sed -n '2p')"
+else
+	if [ -n "$HostDns_3" ]; then
+		HostDns_1="$HostDns_3"
+	else
+		HostDns_1="$(echo -e "$HostDns" | egrep '\.' | egrep -v ':' | sed -n '1p')"
+	fi
+fi
+type="$(cat "$MODDIR/type")"
+mode="$(echo "$mode_conf" | egrep '^mode=' | sed -n 's/.*=//g;$p')"
+if [ "$mode" = "3" ]; then
+	HostVPN="$(echo "$NetworkAgentInfo" | sed -n 's/,.*//g;s/\;.*//g;s/extra:.*//g;s/DnsAddresses: \[.*//g;p' | egrep 'VPN' | wc -l)"
+	if [ "$HostVPN" != "0" ]; then
+		natTOPHOME="$(iptables -t nat -n -L TOPHOME)"
+		TOPHOME_HostDns="$(echo "$natTOPHOME" | egrep '10.35.53.10' | wc -l)"
+		TOPHOME_HostVPN="$(echo "$natTOPHOME" | egrep '127.0.0.1:9' | wc -l)"
+		if [ -n "$natTOPHOME" ]; then
+			if [ "$TOPHOME_HostDns" != "3" -o "$TOPHOME_HostVPN" != "1" -o "$type" != "32" ]; then
+				iptables -t nat -F TOPHOME
+				iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p udp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+				iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p tcp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+				iptables -t nat -A TOPHOME -d 10.35.53.10 -p udp --dport 3553 -j DNAT --to-destination 127.0.0.1:9
+				echo "32" > "$MODDIR/type"
+				sed -i 's/\[.*\]/\[ 模式3+VPN 运行中 \]/g' "$MODDIR/module.prop"
+			fi
+		else
+			iptables -t nat -N TOPHOME
+		fi
+	else
+		B_DNS="$(echo "$mode_conf" | egrep '^B_DNS=[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$' | sed -n 's/.*=//g;$p')"
+		if [ ! -n "$B_DNS" ]; then
+			B_DNS='114.114.114.114:53'
+		fi
+		natTOPHOME="$(iptables -t nat -n -L TOPHOME)"
+		TOPHOME_HostDns="$(echo "$natTOPHOME" | egrep '10.35.53.10' | wc -l)"
+		TOPHOME_HostVPN="$(echo "$natTOPHOME" | egrep "$B_DNS" | wc -l)"
+		if [ -n "$natTOPHOME" ]; then
+			if [ "$TOPHOME_HostDns" != "3" -o "$TOPHOME_HostVPN" != "1" -o "$type" != "31" ]; then
+				iptables -t nat -F TOPHOME
+				iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p udp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+				iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p tcp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+				iptables -t nat -A TOPHOME -d 10.35.53.10 -p udp --dport 3553 -j DNAT --to-destination "$B_DNS"
+				echo "31" > "$MODDIR/type"
+				sed -i 's/\[.*\]/\[ 模式3 运行中 \]/g' "$MODDIR/module.prop"
+			fi
+		else
+			iptables -t nat -N TOPHOME
+		fi
+	fi
+elif [ "$mode" = "2" -o ! -n "$HostDns_1" ]; then
+	natTOPHOME="$(iptables -t nat -n -L TOPHOME)"
+	TOPHOME_HostDns="$(echo "$natTOPHOME" | egrep '10.35.53.10' | wc -l)"
+	TOPHOME_HostVPN="$(echo "$natTOPHOME" | egrep '127.0.0.1:9' | wc -l)"
+	if [ -n "$natTOPHOME" ]; then
+		if [ "$TOPHOME_HostDns" != "3" -o "$TOPHOME_HostVPN" != "1" -o "$type" != "21" ]; then
+			iptables -t nat -F TOPHOME
+			iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p udp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+			iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p tcp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+			iptables -t nat -A TOPHOME -d 10.35.53.10 -p udp --dport 3553 -j DNAT --to-destination 127.0.0.1:9
+			echo "21" > "$MODDIR/type"
+			sed -i 's/\[.*\]/\[ 模式2 运行中 \]/g' "$MODDIR/module.prop"
+		fi
+	else
+		iptables -t nat -N TOPHOME
+	fi
+else
+	HostVPN="$(echo "$NetworkAgentInfo" | sed -n 's/,.*//g;s/\;.*//g;s/extra:.*//g;s/DnsAddresses: \[.*//g;p' | egrep 'VPN' | wc -l)"
+	if [ "$HostVPN" != "0" ]; then
+		natTOPHOME="$(iptables -t nat -n -L TOPHOME)"
+		TOPHOME_HostDns="$(echo "$natTOPHOME" | egrep '10.35.53.10' | wc -l)"
+		TOPHOME_HostVPN="$(echo "$natTOPHOME" | egrep '127.0.0.1:9' | wc -l)"
+		if [ -n "$natTOPHOME" ]; then
+			if [ "$TOPHOME_HostDns" != "3" -o "$TOPHOME_HostVPN" != "1" -o "$type" != "12" ]; then
+				iptables -t nat -F TOPHOME
+				iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p udp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+				iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p tcp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+				iptables -t nat -A TOPHOME -d 10.35.53.10 -p udp --dport 3553 -j DNAT --to-destination 127.0.0.1:9
+				echo "12" > "$MODDIR/type"
+				sed -i 's/\[.*\]/\[ 模式1+VPN 运行中 \]/g' "$MODDIR/module.prop"
+			fi
+		else
+			iptables -t nat -N TOPHOME
+		fi
+	else
+		natTOPHOME="$(iptables -t nat -n -L TOPHOME)"
+		TOPHOME_HostDns="$(echo "$natTOPHOME" | egrep '10.35.53.10' | wc -l)"
+		TOPHOME_HostVPN="$(echo "$natTOPHOME" | egrep "$HostDns_1:53" | wc -l)"
+		if [ -n "$natTOPHOME" ]; then
+			if [ "$TOPHOME_HostDns" != "3" -o "$TOPHOME_HostVPN" != "1" -o "$type" != "11" ]; then
+				iptables -t nat -F TOPHOME
+				iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p udp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+				iptables -t nat -A TOPHOME ! -d 10.35.53.10 -p tcp --dport 53 -j DNAT --to-destination "127.0.0.1:$port_yaml"
+				iptables -t nat -A TOPHOME -d 10.35.53.10 -p udp --dport 3553 -j DNAT --to-destination "$HostDns_1:53"
+				echo "11" > "$MODDIR/type"
+				sed -i 's/\[.*\]/\[ 模式1 运行中 \]/g' "$MODDIR/module.prop"
+			fi
+		else
+			iptables -t nat -N TOPHOME
+		fi
+	fi
+fi
+natOUTPUT="$(iptables -t nat -n -L OUTPUT)"
+nat_OUTPUT="$(echo "$natOUTPUT" | egrep 'TOPHOME' | wc -l)"
+nat_OUTPUT_1="$(echo "$natOUTPUT" | sed -n '3p' | egrep 'TOPHOME' | wc -l)"
+if [ -n "$natOUTPUT" ]; then
+	if [ "$nat_OUTPUT" != "1" -o "$nat_OUTPUT_1" != "1" ]; then
+		until [ "$nat_OUTPUT" = "0" ] ; do
+			iptables -t nat -D OUTPUT -j TOPHOME
+			nat_OUTPUT="$(( $nat_OUTPUT - 1 ))"
+		done
+		iptables -t nat -I OUTPUT -j TOPHOME
+	fi
+fi
+ipv6OUTPUT="$(ip6tables -t filter -n -L OUTPUT)"
+ipv6_OUTPUT_tcp="$(echo "$ipv6OUTPUT" | egrep 'tcp' | egrep '53' | egrep 'REJECT' | wc -l)"
+ipv6_OUTPUT_udp="$(echo "$ipv6OUTPUT" | egrep 'udp' | egrep '53' | egrep 'REJECT' | wc -l)"
+ipv6_OUTPUT_n="$(echo "$ipv6OUTPUT" | sed -n '$p' | egrep 'udp' | egrep '53' | egrep 'REJECT' | wc -l)"
+if [ -n "$ipv6OUTPUT" ]; then
+	if [ "$ipv6_OUTPUT_tcp" != "1" -o "$ipv6_OUTPUT_udp" != "1" -o "$ipv6_OUTPUT_n" != "1" ]; then
+		ip6tables -t filter -D OUTPUT -p tcp --dport 53 -j DROP
+		ip6tables -t filter -D OUTPUT -p udp --dport 53 -j DROP
+		until [ "$ipv6_OUTPUT_tcp" = "0" ] ; do
+			ip6tables -t filter -D OUTPUT -p tcp --dport 53 -j REJECT
+			ipv6_OUTPUT_tcp="$(( $ipv6_OUTPUT_tcp - 1 ))"
+		done
+		until [ "$ipv6_OUTPUT_udp" = "0" ] ; do
+			ip6tables -t filter -D OUTPUT -p udp --dport 53 -j REJECT
+			ipv6_OUTPUT_udp="$(( $ipv6_OUTPUT_udp - 1 ))"
+		done
+		ip6tables -t filter -A OUTPUT -p tcp --dport 53 -j REJECT
+		ip6tables -t filter -A OUTPUT -p udp --dport 53 -j REJECT
+	fi
+fi
+#by topdalao
+#version=2024042200

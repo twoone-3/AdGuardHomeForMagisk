@@ -1,38 +1,32 @@
-MODDIR="${0%/*}"
-ADG_DIR="$MODDIR/bin"
-
-pref=100
-
-disable_ipv6() {
-  sysctl -w net.ipv4.ip_forward=1
-  sysctl -w net.ipv6.conf.all.forwarding=0
-
-  sysctl -w net.ipv6.conf.all.accept_ra=0
-  sysctl -w net.ipv6.conf.wlan0.accept_ra=0
-  sysctl -w net.ipv6.conf.all.disable_ipv6=1
-  sysctl -w net.ipv6.conf.default.disable_ipv6=1
-  sysctl -w net.ipv6.conf.wlan0.disable_ipv6=1
-
-  ip -6 rule add unreachable pref "${pref}"
-
-} >> /dev/null 2>&1
-
-ipv6_enable() {
-  sysctl -w net.ipv4.ip_forward=1
-  sysctl -w net.ipv6.conf.all.forwarding=1
-
-  sysctl -w net.ipv6.conf.all.accept_ra=1
-  sysctl -w net.ipv6.conf.wlan0.accept_ra=1
-  sysctl -w net.ipv6.conf.all.disable_ipv6=0
-  sysctl -w net.ipv6.conf.default.disable_ipv6=0
-  sysctl -w net.ipv6.conf.wlan0.disable_ipv6=0
-
-  ip -6 rule del unreachable pref "${pref}"
-
-} >> /dev/null 2>&1
-
-chown root:net_admin "$ADG_DIR/AdGuardHome"
-setuidgid root:net_admin "$ADG_DIR/AdGuardHome" >>"$ADG_DIR/AdGuardHome.log" 2>&1 &
-
-"$MODDIR/apply_iptables.sh"
-disable_ipv6
+until [ -f "${0%/*}/topdalao" ]; do
+	sed -i 's/\[.*\]/\[ 文件topdalao丢失，请重新安装模块重启 \]/g' "${0%/*}/module.prop"
+	sleep 5
+done
+sleep 5
+MODDIR=${0%/*}
+chmod 0755 "$MODDIR/AdGuardHome"
+chmod 0755 "$MODDIR/topdalao"
+chmod 0755 "$MODDIR/testing.sh"
+chmod 0644 "$MODDIR/mode.conf"
+chmod 0644 "$MODDIR/AdGuardHome.yaml"
+sleep 1
+echo "rm -f \"$MODDIR/stop\"" > "$MODDIR/恢复过滤.sh"
+echo "touch \"$MODDIR/stop\"" > "$MODDIR/暂停过滤.sh"
+chmod 0755 "$MODDIR/恢复过滤.sh"
+chmod 0755 "$MODDIR/暂停过滤.sh"
+if [ -f "$MODDIR/t_module" -a "$(cat "$MODDIR/module.prop" | egrep '^#by topdalao' | sed -n '$p')" != '#by topdalao' ]; then
+	cp "$MODDIR/t_module" "$MODDIR/module.prop"
+	chmod 0644 "$MODDIR/module.prop"
+fi
+"$MODDIR/AdGuardHome" > /dev/null 2>&1 &
+sed -i 's/\[.*\]/\[ 未生效，尝试移除模块重启后再安装，或换稳定版Mgaisk \]/g' "$MODDIR/module.prop"
+up=1
+while true ; do
+if [ "$up" = "20" -o "$up" = "7200" ]; then
+	"$MODDIR/up" > /dev/null 2>&1 &
+	up=21
+fi
+sleep 3
+"$MODDIR/topdalao" > /dev/null 2>&1
+up="$(( $up + 1 ))"
+done

@@ -1,6 +1,6 @@
 id=AdGuardHome
-name=AdGuardHome for Magisk
-version=20240417
-versionCode=11
-author=twoone3
-description=Filter ads at the DNS level
+name=AdGuardHome模块
+version=20240715
+versionCode=1
+author=top大佬(酷安) & twoone3 魔改
+description=[ - ] 通过DNS层面过滤广告，使用前请先详读mode.conf文件，支持订阅过滤规则，后台地址127.0.0.1:3000，用户名/密码root，配置文件：/data/adb/modules/AdGuardHome/mode.conf
