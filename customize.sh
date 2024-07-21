@@ -1,16 +1,11 @@
-ui_print " -------------------------- "
-ui_print " ------ 安装中，请稍等 ------ "
-sleep 1
-cp "$MODPATH/module.prop" "$MODPATH/t_module"
-if [ "$IS64BIT" = 'true' ]; then
-	cp "$MODPATH/linux_arm64/AdGuardHome" "$MODPATH/AdGuardHome" > /dev/null 2>&1
-ui_print " -------------------------- "
-else
-	cp "$MODPATH/linux_armv7/AdGuardHome" "$MODPATH/AdGuardHome" > /dev/null 2>&1
-ui_print " -------------------------- "
+if [ "$ARCH" != "arm64" ]; then
+  abort "- only support arm64"
 fi
-sleep 1
-rm -rf "$MODPATH/linux_arm64"
-rm -rf "$MODPATH/linux_armv7"
-ui_print " ----- 安装已完成，请重启 ---- "
-ui_print " -------------------------- "
+
+ui_print "- Installing AdGuardHome"
+
+ADG_DIR="$MODPATH/bin"
+chmod 0775 "$ADG_DIR/AdGuardHome" "$MODPATH/apply_iptables.sh" "$MODPATH/flush_iptables.sh"
+chown root:net_raw "$ADG_DIR/AdGuardHome"
+
+ui_print "- Installing success, please reboot your device"
