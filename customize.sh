@@ -1,19 +1,15 @@
 ADG_DIR="$MODPATH/bin"
 case $ARCH in
   arm64)
-    mv "$ADG_DIR/AdGuardHome_arm64" "$ADG_DIR/AdGuardHome"
-    rm -f "$ADG_DIR/AdGuardHome_armv7"
+    ui_print "- Installing AdGuardHome for arm64"
   ;;
   arm)
-    mv "$ADG_DIR/AdGuardHome_armv7" "$ADG_DIR/AdGuardHome"
-    rm -f "$ADG_DIR/AdGuardHome_arm64"
+    ui_print "- Installing AdGuardHome for armv7"
   ;;
   x86)
-    # mv "$ADG_DIR/AdGuardHome_x86" "$ADG_DIR/AdGuardHome"
     abort "x86 is not supported"
   ;;
   x64)
-    # mv "$ADG_DIR/AdGuardHome_x64" "$ADG_DIR/AdGuardHome"
     abort "x64 is not supported"
   ;;
 esac
