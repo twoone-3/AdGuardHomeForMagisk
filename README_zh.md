@@ -14,7 +14,7 @@
 - 注意！本模块与可能与代理类模块冲突，同时使用两种模块会导致潜在问题！
 
 # 特性
-- DNS 上游为腾讯阿里 DoT，备用 DNS 为 Google 和 CloudFlare
+- DNS 上游为腾讯阿里 DoH，备用 DNS 为 Google 和 CloudFlare
 - 仅内置[秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)，省电，少误杀
 - 可配合第三方软件进行启动停止，通过执行位于 /data/adb/modules/AdGuardHome/bin/ 的 apply_iptables.sh 和 flush_iptables.sh，这里给出Anywhere的快捷导入链接（复制到剪贴板即可导入）
 
