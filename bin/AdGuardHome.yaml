@@ -23,8 +23,8 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-    - https://1.12.12.12/dns-query
-    - https://223.5.5.5/dns-query
+    - tls://223.5.5.5
+    - tls://1.12.12.12
   upstream_dns_file: ""
   bootstrap_dns:
     - 223.5.5.5
@@ -32,10 +32,8 @@ dns:
     - 1.1.1.1
     - 8.8.8.8
   fallback_dns:
-    - https://120.53.53.53/dns-query
-    - https://223.6.6.6/dns-query
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
+    - tls://1.1.1.1
+    - tls://8.8.8.8
   upstream_mode: load_balance
   fastest_timeout: 1s
   allowed_clients: []
@@ -47,7 +45,7 @@ dns:
   trusted_proxies:
     - 127.0.0.0/8
     - ::1/128
-  cache_size: 33554432
+  cache_size: 67108864
   cache_ttl_min: 0
   cache_ttl_max: 0
   cache_optimistic: true
@@ -91,7 +89,7 @@ tls:
 querylog:
   dir_path: ""
   ignored: []
-  interval: 24h
+  interval: 6h
   size_memory: 1000
   enabled: true
   file_enabled: true
@@ -148,7 +146,7 @@ filtering:
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576
   cache_time: 30
-  filters_update_interval: 168
+  filters_update_interval: 72
   blocked_response_ttl: 30
   filtering_enabled: true
   parental_enabled: false
