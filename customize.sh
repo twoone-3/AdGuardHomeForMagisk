@@ -1,20 +1,21 @@
-ADG_DIR="$MODPATH/bin"
-case $ARCH in
-  arm64)
-    ui_print "- Installing AdGuardHome for arm64"
-  ;;
-  arm)
-    ui_print "- Installing AdGuardHome for armv7"
-  ;;
-  x86)
-    abort "x86 is not supported"
-  ;;
-  x64)
-    abort "x64 is not supported"
-  ;;
-esac
+#!/system/bin/sh
 
-chmod 0775 "$ADG_DIR/AdGuardHome" "$MODPATH/apply_iptables.sh" "$MODPATH/flush_iptables.sh"
-chown root:net_raw "$ADG_DIR/AdGuardHome"
+SKIPUNZIP=1
 
-ui_print "- Installing success, please reboot your device"
+ui_print "- Installing AdGuardHome for $ARCH"
+
+if [ -d "$MODPATH" ]; then
+  ui_print "- Backing up AdGuardHome configuration..."
+  date=$(date +%Y%m%d-%H%M%S)
+  cp "/data/adb/modules/AdGuardHome/bin/AdGuardHome.yaml" "/data/adb/AdGuardHome-$date.yaml"
+  ui_print "- Backup Success, the backup file is /data/adb/AdGuardHome-$date.yaml"
+fi
+
+ui_print "- Extracting files..."
+unzip -o "$ZIPFILE" -x 'META-INF/*' -x 'webroot/*' -d "$MODPATH" >&2
+
+ui_print "- Setting permissions..."
+chmod 0755 "$MODPATH/bin/AdGuardHome" "$MODPATH/apply_iptables.sh" "$MODPATH/flush_iptables.sh"
+chown root:net_raw "$MODPATH/bin/AdGuardHome"
+
+ui_print "- Installation is complete, please restart your device."

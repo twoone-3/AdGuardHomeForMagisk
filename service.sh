@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 MODDIR="${0%/*}"
 ADG_DIR="$MODDIR/bin"
 

@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 iptables -t nat -N ADGUARD
 # return requests from AdGuardHome
 iptables -t nat -A ADGUARD -m owner --uid-owner root --gid-owner net_raw -j RETURN
