@@ -14,7 +14,7 @@ Join our [Telegram](https://t.me/adguardhome_for_magisk_release) channel for the
 - Note! This module may conflict with proxy modules, using both modules at the same time may cause potential problems!
 
 # Features
-- The DNS upstream is Tencent Ali DoH, the backup DNS is Google and CloudFlare
+- The main DNS is Tencent DNSPod public DNS and Aliyun DNS, the backup DNS is Cloudflare DNS and Google DNS, you can change them in AdGuardHome's DNS settings to meet your needs
 - Only built-in [AWAvenue-Ads-Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule), power-saving, less false positives
 - Can be started and stopped with third-party software by executing apply_iptables.sh and flush_iptables.sh located in /data/adb/modules/AdGuardHome/bin/, here is the quick import link for Anywhere (copy to clipboard to import)
 

@@ -14,7 +14,7 @@
 - 注意！本模块与可能与代理类模块冲突，同时使用两种模块会导致潜在问题！
 
 # 特性
-- DNS 上游为腾讯阿里 DoH，备用 DNS 为 Google 和 CloudFlare
+- 主 DNS 为 腾讯 DNSPod 公共 DNS 以及 阿里云 DNS，备用 DNS 为 Cloudflare DNS 和 Google DNS，你可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求
 - 仅内置[秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)，省电，少误杀
 - 可配合第三方软件进行启动停止，通过执行位于 /data/adb/modules/AdGuardHome/bin/ 的 apply_iptables.sh 和 flush_iptables.sh，这里给出Anywhere的快捷导入链接（复制到剪贴板即可导入）
 
@@ -30,19 +30,19 @@ anywhere://share/J2VP8X5qVhbI2sRvhZ2hdp4467QzpcHDlkAQil7Mg6oDOLdzYgAJO+9fKKenP2M
 # FAQ
 > Q: 为什么模块无法屏蔽某些广告?
 
-> A: 模块通过转发53端口的DNS请求来实现广告屏蔽，因此无法屏蔽通过HTTPS传输的广告，如Youtube、Twitter等
+> A: 模块通过转发 53 端口的 DNS 请求来实现广告屏蔽，因此无法屏蔽通过 HTTPS 传输的广告，如 Youtube、Twitter 等
 
 > Q: 为什么装上模块后访问页面变慢?
 
-> A: 因为模块会将所有DNS请求转发到AdGuardHome，再由AdGuardHome转发到上游的公共DNS，而这些DNS服务器一般比运营商的DNS服务器慢
+> A: 因为模块会将所有 DNS 请求转发到 AdGuardHome，再由 AdGuardHome 转发到上游的公共 DNS，而这些 DNS 服务器一般比运营商的 DNS 服务器慢
 
 > Q: 为什么本来可以访问的页面一段时间后出现了无法访问?
 
-> A: 由于公共DNS请求较慢，模块默认配置文件里开启了乐观缓存，可能导致一些过时的IP在过期后仍然被使用，如需关闭请在AdGuardHome的DNS设置里关闭
+> A: 由于公共 DNS 请求较慢，模块默认配置文件里开启了乐观缓存，可能导致一些过时的 IP 在过期后仍然被使用，如需关闭请在 AdGuardHome 的 DNS 设置里关闭
 
 > Q: 模块可以与代理软件一起使用吗?
 
-> A: 可以，但是可能会导致一些问题，如某些节点无法访问，如这种情况很严重，请参见上一条FAQ，关闭乐观缓存
+> A: 可以，但是可能会导致一些问题，如某些节点无法访问，如这种情况很严重，请参见上一条 FAQ，关闭乐观缓存
 
 # 鸣谢
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)
