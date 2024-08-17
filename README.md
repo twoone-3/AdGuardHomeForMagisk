@@ -7,7 +7,7 @@ A Magisk/KernelSU module that blocks ads by redirecting and filtering DNS reques
 ![Static Badge](https://img.shields.io/badge/arm--v7-support-blue)
 ![GitHub all releases](https://img.shields.io/github/downloads/twoone-3/AdguardHome/total)
 
-Join our [Telegram](https://t.me/adguardhome_for_magisk_release) channel for the latest information and FAQ
+Join our [Telegram](https://t.me/adguardhome_for_magisk_release) channel for the latest information
 
 # Usage
 - Before using, turn off `Private DNS` in the settings, flash into Magisk/KernelSU and restart to use. The AdGuardHome background management address is http://127.0.0.1:3000, username/password root
@@ -26,6 +26,23 @@ Anywhere stop link
 ```
 anywhere://share/J2VP8X5qVhbI2sRvhZ2hdp4467QzpcHDlkAQil7Mg6oDOLdzYgAJO+9fKKenP2M28XWZ71jveGDq1E/sCmMAhBqd5N04LZkJp0EYtrFp7Vw9xPsYBhlmwlaKWljr9iIAMGWOulpW7Zzhm/tpfaDIKjweOGfIsONgcoWq89Idmb215WTrhfju+OeoNqDicBqrOLI5iyI8fTCQifRm7m7hq53WMgN/BoYbWnyE34AeVO2hq5btVggCTBGunrftXnlweSY4ngaN8CmhTlDWQeyjMJRZMooTPHwcQm3fisvBY6McMaVV5lSLHBe+MNaK1EwnzQ0RjNJh/3eoVGQJgUUyN8swAmtakrwaNA==
 ```
+
+# FAQ
+> Q: Why can't the module block some ads?
+
+> A: The module blocks ads by forwarding DNS requests on port 53, so it cannot block ads transmitted over HTTPS, such as Youtube, Twitter, etc.
+
+> Q: Why does the page slow down after installing the module?
+
+> A: Because the module forwards all DNS requests to AdGuardHome, which then forwards them to public DNS upstreams, which are generally slower than the operator's DNS servers.
+
+> Q: Why can't I access a page that I could access before after a while?
+
+> A: Because public DNS requests are slow, the module's default configuration file enables optimistic caching, which may cause some outdated IPs to continue to be used after expiration. To disable, please turn off in AdGuardHome's DNS settings.
+
+> Q: Can the module be used with proxy software?
+
+> A: Yes, but it may cause some problems, such as some nodes being inaccessible. If this is serious, please refer to the previous FAQ and turn off optimistic caching.
 
 # Acknowledgements
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)
