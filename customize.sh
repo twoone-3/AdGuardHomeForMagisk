@@ -4,15 +4,17 @@ SKIPUNZIP=1
 
 ui_print "- Installing AdGuardHome for $ARCH"
 
-if [ -d "$MODPATH" ]; then
-  ui_print "- Backing up AdGuardHome configuration..."
-  date=$(date +%Y%m%d-%H%M%S)
-  cp "/data/adb/modules/AdGuardHome/bin/AdGuardHome.yaml" "/data/adb/AdGuardHome-$date.yaml"
-  ui_print "- Backup Success, the backup file is /data/adb/AdGuardHome-$date.yaml"
+CONFIG_PATH="/data/adb/modules/AdGuardHome/bin/AdGuardHome.yaml"
+BACKUP_PATH="/data/adb/modules/AdGuardHome/bin/AdGuardHome.yaml.bak"
+
+if [ -f "$CONFIG_PATH" ]; then
+  ui_print "- Restoring AdGuardHome configuration..."
+  cp "$CONFIG_PATH" "$BACKUP_PATH"
+  ui_print "- Backup Success, the backup file is $BACKUP_PATH"
 fi
 
 ui_print "- Extracting files..."
-unzip -o "$ZIPFILE" -x 'META-INF/*' -x 'webroot/*' -d "$MODPATH" >&2
+unzip -o "$ZIPFILE" -x 'META-INF/*' -d "$MODPATH" >&2
 
 ui_print "- Setting permissions..."
 chmod 0755 "$MODPATH/bin/AdGuardHome" "$MODPATH/apply_iptables.sh" "$MODPATH/flush_iptables.sh"
