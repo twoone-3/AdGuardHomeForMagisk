@@ -1,6 +1,6 @@
 id=AdGuardHome
 name=AdGuardHome for Magisk
-version=20240817
-versionCode=16
+version=20240821
+versionCode=17
 author=twoone3
 description=Filter ads at the DNS level

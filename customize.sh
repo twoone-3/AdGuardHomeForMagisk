@@ -5,7 +5,7 @@ SKIPUNZIP=1
 ui_print "- Installing AdGuardHome for $ARCH"
 
 CONFIG_PATH="/data/adb/modules/AdGuardHome/bin/AdGuardHome.yaml"
-BACKUP_PATH="/data/adb/modules/AdGuardHome/bin/AdGuardHome.yaml.bak"
+BACKUP_PATH="/storage/emulated/0/AdGuardHome.yaml"
 
 if [ -f "$CONFIG_PATH" ]; then
   ui_print "- Restoring AdGuardHome configuration..."
