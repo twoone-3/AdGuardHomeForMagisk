@@ -11,7 +11,7 @@
 
 # 用法
 - 使用前需在设置里关闭 `私人/专用dns`，在 Magisk/KernelSU 刷入后重启即可使用，AdGuardHome 后台管理地址为 http://127.0.0.1:3000，用户名/密码root
-- 注意！本模块与可能与代理类模块冲突，同时使用两种模块会导致潜在问题！
+- 注意：模块与代理类模块有冲突，如需要科学上网请使用代理软件
 
 # 特性
 - 主 DNS 为 腾讯 DNSPod 公共 DNS 以及 阿里云 DNS，备用 DNS 为 Cloudflare DNS 和 Google DNS，你可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求

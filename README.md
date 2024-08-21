@@ -11,7 +11,7 @@ Join our [Telegram](https://t.me/adguardhome_for_magisk_release) channel for the
 
 # Usage
 - Before using, turn off `Private DNS` in the settings, flash into Magisk/KernelSU and restart to use. The AdGuardHome background management address is http://127.0.0.1:3000, username/password root
-- Note! This module may conflict with proxy modules, using both modules at the same time may cause potential problems!
+- Note: The module conflicts with proxy modules, if you need to access the Internet, please use proxy software
 
 # Features
 - The main DNS is Tencent DNSPod public DNS and Aliyun DNS, the backup DNS is Cloudflare DNS and Google DNS, you can change them in AdGuardHome's DNS settings to meet your needs
