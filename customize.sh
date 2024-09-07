@@ -8,9 +8,23 @@ CONFIG_PATH="/data/adb/modules/AdGuardHome/bin/AdGuardHome.yaml"
 BACKUP_PATH="/storage/emulated/0/AdGuardHome.yaml"
 
 if [ -f "$CONFIG_PATH" ]; then
-  ui_print "- Restoring AdGuardHome configuration..."
-  cp "$CONFIG_PATH" "$BACKUP_PATH"
-  ui_print "- Backup Success, the backup file is $BACKUP_PATH"
+  ui_print "- Previous configuration found, would you like to restore it?"
+  ui_print "- (Volume Up = Yes, Volume Down = No)"
+  key_click=""
+  while [ "$key_click" = "" ]; do
+    key_click="$(getevent -qlc 1 | awk '{ print $3 }' | grep 'KEY_')"
+    sleep 0.2
+  done
+  case "$key_click" in
+  "KEY_VOLUMEUP")
+    cp "$CONFIG_PATH" "$BACKUP_PATH"
+    ui_print "- Backup Success, the backup file is $BACKUP_PATH"
+    ;;
+  *)
+    ui_print "- Backup Skipped"
+    ;;
+  esac
+
 fi
 
 ui_print "- Extracting files..."
