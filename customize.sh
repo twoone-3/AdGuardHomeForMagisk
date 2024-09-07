@@ -34,4 +34,22 @@ ui_print "- Setting permissions..."
 chmod 0755 "$MODPATH/bin/AdGuardHome" "$MODPATH/apply_iptables.sh" "$MODPATH/flush_iptables.sh"
 chown root:net_raw "$MODPATH/bin/AdGuardHome"
 
+ui_print "- Would you like to apply iptables rules in every boot?"
+ui_print "- (Volume Up = Yes, Volume Down = No)"
+key_click=""
+while [ "$key_click" = "" ]; do
+  key_click="$(getevent -qlc 1 | awk '{ print $3 }' | grep 'KEY_')"
+  sleep 0.2
+done
+case "$key_click" in
+"KEY_VOLUMEUP")
+  touch "$MODPATH/apply_iptables.sh"
+  ui_print "- Iptables rules will be applied in every boot."
+  ;;
+*)
+  touch "$MODPATH/manual"
+  ui_print "- Iptables rules will not be applied in every boot."
+  ;;
+esac
+
 ui_print "- Installation is complete, please restart your device."
