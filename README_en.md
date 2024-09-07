@@ -1,50 +1,54 @@
 # AdGuardHome for Magisk
 English | [简体中文](README.md)
 
-A Magisk/KernelSU module that blocks ads by redirecting and filtering DNS requests
+A Magisk/KernelSU module to block ads by redirecting and filtering DNS requests.
 
-![Static Badge](https://img.shields.io/badge/arm--64-support-blue)
-![Static Badge](https://img.shields.io/badge/arm--v7-support-blue)
-![GitHub all releases](https://img.shields.io/github/downloads/twoone-3/AdguardHome/total)
+! [Static Badge](https://img.shields.io/badge/arm--64-support-blue)
+! [Static Badge](https://img.shields.io/badge/arm--v7-support-blue) !
+! [GitHub all releases](https://img.shields.io/github/downloads/twoone-3/AdguardHome/total)
 
-Join our [Telegram](https://t.me/adguardhome_for_magisk_release) channel for the latest information
+Join our [Telegram](https://t.me/adguardhome_for_magisk_release) channel for new messages!
 
 # Usage
-- Before using, turn off `Private DNS` in the settings, flash into Magisk/KernelSU and restart to use. The AdGuardHome background management address is http://127.0.0.1:3000, username/password root
-- Note: The module conflicts with proxy modules, if you need to access the Internet, please use proxy software
+- Disable `private/specialized dns` in settings before use, then flush it in Magisk/KernelSU and follow the instructions to configure it, AdGuardHome admin address is http://127.0.0.1:3000, default username/password root.
 
 # Features
-- The main DNS is Tencent DNSPod public DNS and Aliyun DNS, the backup DNS is Cloudflare DNS and Google DNS, you can change them in AdGuardHome's DNS settings to meet your needs
-- Only built-in [AWAvenue-Ads-Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule), power-saving, less false positives
-- Can be started and stopped with third-party software by executing apply_iptables.sh and flush_iptables.sh located in /data/adb/modules/AdGuardHome/bin/, here is the quick import link for Anywhere (copy to clipboard to import)
-
-Anywhere start link
+- The primary DNS is Tencent DNSPod public DNS and AliCloud DNS, the backup DNS is Cloudflare DNS and Google DNS, you can change the DNS settings in AdGuardHome to meet your needs.
+- Only built-in [Autumn Breeze Ad Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule), which saves power and reduces false positives.
+- You can manually execute a script to apply iptables rules to redirect local DNS requests to AdGuardHome.
+```shell.
+# Start the iptables rule
+su -c /data/adb/modules/AdGuardHome/bin/apply_iptables.sh
 ```
-anywhere://share/J2VP8X5qVhbI2sRvhZ6JXLZdx7Y6JLmsCgw9Wd7k7qce3ERvOaJlWHt61Y8oalvceraVdBkTbIymWLyhgxRQLeICFi3/GKuZYkqPJ3A6WQ8+xW4nTvmC9SwzER2X/9PFEtjgZsphvy2R8suN6BOE3Pm10gwmsdoLwCuLxs0uIA2VmP25Ur1GHTCogIgJoWBpJpz0QT1/LvBtNXXdFwkilQNF8VvcKAO3cgKns+I3hUk0T2rbsjVfj4UwxgYxi5Yg9yiV53hOzIzVZ9uZki3uy6TNTnThFXM+Hg88m8dron/cJM9Qg5Y979j0YTVrA9XakpnXKlF7UvaDM85FSjXZpkXCzbn00lWcvQ==
+```shell
+# Stop the iptables rule
+su -c /data/adb/modules/AdGuardHome/bin/flush_iptables.sh
 ```
-Anywhere stop link
-```
-anywhere://share/J2VP8X5qVhbI2sRvhZ2hdp4467QzpcHDlkAQil7Mg6oDOLdzYgAJO+9fKKenP2M28XWZ71jveGDq1E/sCmMAhBqd5N04LZkJp0EYtrFp7Vw9xPsYBhlmwlaKWljr9iIAMGWOulpW7Zzhm/tpfaDIKjweOGfIsONgcoWq89Idmb215WTrhfju+OeoNqDicBqrOLI5iyI8fTCQifRm7m7hq53WMgN/BoYbWnyE34AeVO2hq5btVggCTBGunrftXnlweSY4ngaN8CmhTlDWQeyjMJRZMooTPHwcQm3fisvBY6McMaVV5lSLHBe+MNaK1EwnzQ0RjNJh/3eoVGQJgUUyN8swAmtakrwaNA==
-```
+- Create a `manual` file in the project modules directory to choose whether or not to apply the iptables rules on each startup, i.e., only run the main AdGuardHome program.
 
 # FAQ
 > Q: Why can't the module block some ads?
 
-> A: The module blocks ads by forwarding DNS requests on port 53, so it cannot block ads transmitted over HTTPS, such as Youtube, Twitter, etc.
+> A: The module blocks ads by forwarding DNS requests on port 53, so it can't block ads delivered over HTTPS, such as Youtube, Twitter, etc.
 
-> Q: Why does the page slow down after installing the module?
+> Q: Why the page access slows down after installing the module?
 
-> A: Because the module forwards all DNS requests to AdGuardHome, which then forwards them to public DNS upstreams, which are generally slower than the operator's DNS servers.
+> A: Because the module forwards all DNS requests to AdGuardHome, which in turn forwards them to the upstream public DNS, there is an extra layer of forwarding, but the module has optimistic caching turned on by default, which greatly reduces the latency on the second visit.
 
-> Q: Why can't I access a page that I could access before after a while?
+> Q: Why the page that was accessible is not accessible after a while?
 
-> A: Because public DNS requests are slow, the module's default configuration file enables optimistic caching, which may cause some outdated IPs to continue to be used after expiration. To disable, please turn off in AdGuardHome's DNS settings.
+> A: Due to the slower public DNS requests, the module has optimistic caching enabled in the default configuration file, which may lead to some outdated IPs still being used after the expiration date, you can clean up DNS cache in the background to alleviate the problem, or turn off optimistic caching.
 
 > Q: Can the module be used with proxy software?
 
-> A: Yes, but it may cause some problems, such as some nodes being inaccessible. If this is serious, please refer to the previous FAQ and turn off optimistic caching.
+> A: Yes, but it may cause some problems, such as some nodes being unreachable. If this is a serious issue, please see the previous FAQ to turn off optimistic caching.
 
-# Acknowledgements
+> Q: Does the module conflict with other proxy modules?
+
+> A: No, you can use 127.0.0.1:5591 as the DNS server of the proxy module.
+
+# Acknowledgments
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)
 - [akashaProxy](https://github.com/ModuleList/akashaProxy)
 - [box_for_magisk](https://github.com/taamarin/box_for_magisk)
+- Translated with DeepL.com (free version)
