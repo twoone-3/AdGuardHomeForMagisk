@@ -1,11 +1,11 @@
 #!/system/bin/sh
 
 MODDIR="${0%/*}"
-ADG_DIR="$MODDIR/bin"
+source "${MODDIR}/config.sh"
 
-SSL_CERT_DIR="/system/etc/security/cacerts/" setuidgid root:net_raw "$ADG_DIR/AdGuardHome" >>"$ADG_DIR/AdGuardHome.log" 2>&1 &
+SSL_CERT_DIR="/system/etc/security/cacerts/" busybox setuidgid "$adg_user:$adg_group" $bin_path >>$log_path 2>&1 &
 
 sleep 3
-if [ ! -f "$MODDIR/manual" ]; then
-  "$MODDIR/apply_iptables.sh"
+if [ ! -f "${MODDIR}/manual" ]; then
+  "${MODDIR}/apply_iptables.sh"
 fi

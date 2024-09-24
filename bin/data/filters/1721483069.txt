@@ -4,6 +4,7 @@
 ||8le8le.com^
 ||a0.app.xiaomi.com^
 ||aaid.umeng.com^
+||abtest-ch.snssdk.com^
 ||ad-cache.dopool.com^
 ||ad-cdn.qingting.fm^
 ||ad-scope.com^
@@ -101,9 +102,11 @@
 ||advertising.yandex.ru^
 ||advice-ads.s3.amazonaws.com^
 ||adview.cn^
+||adx-bj.anythinktech.com^
 ||adx-cn.anythinktech.com^
 ||adx-drcn.op.dbankcloud.cn^
 ||adx-open-service.youku.com^
+||adx-os.anythinktech.com^
 ||adxlog-adnet.vivo.com.cn^
 ||adxlog-adnet.vivo.com.cn.dsa.dnsv1.com.cn^
 ||adxserver.ad.cmvideo.cn^
@@ -158,6 +161,7 @@
 ||audid-api.taobao.com^
 ||audid.umeng.com^
 ||azr.footprintdns.com^
+||bdad.123pan.cn^
 ||bdapi-ads.realmemobile.com^
 ||bdapi-in-ads.realmemobile.com^
 ||beacon-api.aliyuncs.com^
@@ -165,6 +169,7 @@
 ||beaconcdn.qq.com^
 ||beacons.gvt2.com^
 ||beizi.biz^
+||bes-mtj.baidu.com^
 ||bgg.baidu.com^
 ||bianxian.com^
 ||bingads.microsoft.com^
@@ -181,6 +186,7 @@
 ||c.sayhi.360.cn^
 ||c2.gdt.qq.com^
 ||catalog.fjwhcbsh.com^
+||cbjs.baidu.com^
 ||ccs.umeng.com^
 ||cctv.adsunion.com^
 ||cdn-ad.wtzw.com^
@@ -201,6 +207,7 @@
 ||conn-service-in-03.allawnos.com^
 ||conn-service-in-04.allawnos.com^
 ||conn-service-in-05.allawnos.com^
+||cpro.baidustatic.com^
 ||crashlytics.com^
 ||crashlyticsreports-pa.googleapis.com^
 ||csjplatform.com^
@@ -410,6 +417,7 @@
 ||plbslog.umeng.com^
 ||pms.mb.qq.com^
 ||policy.video.ptqy.gitv.tv^
+||pos.baidu.com^
 ||proxy.advp.apple.com^
 ||public.gdtimg.com^
 ||q.i.gdt.qq.com^
@@ -532,6 +540,7 @@
 ||ulogs.umengcloud.com^
 ||umengacs.m.taobao.com^
 ||umengjmacs.m.taobao.com^
+||umini.shujupie.com^
 ||umsns.com^
 ||union.baidu.cn^
 ||union.baidu.com^
@@ -543,7 +552,9 @@
 ||v1-ad.video.yximgs.com^
 ||v2-ad.video.yximgs.com^
 ||v2.gdt.qq.com^
+||v2mi.gdt.qq.com^
 ||v3-ad.video.yximgs.com^
+||v3.gdt.qq.com^
 ||video-ad.sm.cn^
 ||video-dsp.pddpic.com^
 ||video.dispatch.tc.qq.com^
@@ -585,7 +596,6 @@
 ||widgets.outbrain.com^
 ||widgets.pinterest.com^
 ||win.gdt.qq.com^
-||wn.pos.baidu.com^
 ||wn.x.jd.com^
 ||ws.sj.qq.com^
 ||www42.zskwai.com^

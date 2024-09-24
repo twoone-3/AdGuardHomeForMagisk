@@ -31,8 +31,8 @@ ui_print "- Extracting files..."
 unzip -o "$ZIPFILE" -x 'META-INF/*' -d "$MODPATH" >&2
 
 ui_print "- Setting permissions..."
-chmod 0755 "$MODPATH/bin/AdGuardHome" "$MODPATH/apply_iptables.sh" "$MODPATH/flush_iptables.sh"
-chown root:net_raw "$MODPATH/bin/AdGuardHome"
+chmod +x "$MODPATH/bin/AdGuardHome" "$MODPATH/*.sh"
+chown root:net_raw "$MODPATH/bin/AdGuardHome" 
 
 ui_print "- Would you like to apply iptables rules in every boot?"
 ui_print "- (Volume Up = Yes, Volume Down = No)"

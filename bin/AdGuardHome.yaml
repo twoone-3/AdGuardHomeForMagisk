@@ -23,7 +23,7 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-    - h3://223.5.5.5/dns-query
+    - https://223.5.5.5/dns-query
     - https://1.12.12.12/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
@@ -33,7 +33,7 @@ dns:
     - 8.8.8.8
   fallback_dns:
     - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-qeury
+    - https://8.8.8.8/dns-query
   upstream_mode: load_balance
   fastest_timeout: 1s
   allowed_clients: []
@@ -46,9 +46,9 @@ dns:
     - 127.0.0.0/8
     - ::1/128
   cache_size: 67108864
-  cache_ttl_min: 300
-  cache_ttl_max: 3600
-  cache_optimistic: false
+  cache_ttl_min: 0
+  cache_ttl_max: 0
+  cache_optimistic: true
   bogus_nxdomain: []
   aaaa_disabled: false
   enable_dnssec: false
@@ -63,7 +63,7 @@ dns:
   bootstrap_prefer_ipv6: false
   upstream_timeout: 10s
   private_networks: []
-  use_private_ptr_resolvers: false
+  use_private_ptr_resolvers: true
   local_ptr_upstreams: []
   use_dns64: false
   dns64_prefixes: []
