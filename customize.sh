@@ -1,55 +1,36 @@
 #!/system/bin/sh
-
 SKIPUNZIP=1
 
 ui_print "- Installing AdGuardHome for $ARCH"
 
-CONFIG_PATH="/data/adb/modules/AdGuardHome/bin/AdGuardHome.yaml"
-BACKUP_PATH="/storage/emulated/0/AdGuardHome.yaml"
+AGH_DIR="/data/adb/agh"
+BIN_DIR="$AGH_DIR/bin"
+SCRIPT_DIR="$AGH_DIR/scripts"
+SERVICE_DIR="/data/adb/service.d"
 
-if [ -f "$CONFIG_PATH" ]; then
-  ui_print "- Previous configuration found, would you like to restore it?"
-  ui_print "- (Volume Up = Yes, Volume Down = No)"
-  key_click=""
-  while [ "$key_click" = "" ]; do
-    key_click="$(getevent -qlc 1 | awk '{ print $3 }' | grep 'KEY_')"
-    sleep 0.2
-  done
-  case "$key_click" in
-  "KEY_VOLUMEUP")
-    cp "$CONFIG_PATH" "$BACKUP_PATH"
-    ui_print "- Backup Success, the backup file is $BACKUP_PATH"
-    ;;
-  *)
-    ui_print "- Backup Skipped"
-    ;;
-  esac
-
+if [ -d "$AGH_DIR" ]; then
+  ui_print "- Backup existing installation..."
+  BACKUP_DIR=$(mktemp -d /data/adb/agh.XXXXXXXXXX)
+  mv "$AGH_DIR"/* "$BACKUP_DIR"
+  ui_print "- Backup created at $BACKUP_DIR"
+else
+  mkdir -p "$AGH_DIR" "$BIN_DIR" "$SCRIPT_DIR"
 fi
 
 ui_print "- Extracting files..."
-unzip -o "$ZIPFILE" -x 'META-INF/*' -d "$MODPATH" >&2
+unzip -o "$ZIPFILE" "uninstall.sh" -d $MODPATH
+unzip -o "$ZIPFILE" "module.prop" -d $MODPATH
+unzip -o "$ZIPFILE" "agh_service.sh" -d $SERVICE_DIR
+unzip -o "$ZIPFILE" "scripts/*" -d $AGH_DIR
+unzip -o "$ZIPFILE" "bin/*" -d $AGH_DIR
 
 ui_print "- Setting permissions..."
-chmod +x "$MODPATH/bin/AdGuardHome" "$MODPATH/*.sh"
-chown root:net_raw "$MODPATH/bin/AdGuardHome" 
-
-ui_print "- Would you like to apply iptables rules in every boot?"
-ui_print "- (Volume Up = Yes, Volume Down = No)"
-key_click=""
-while [ "$key_click" = "" ]; do
-  key_click="$(getevent -qlc 1 | awk '{ print $3 }' | grep 'KEY_')"
-  sleep 0.2
-done
-case "$key_click" in
-"KEY_VOLUMEUP")
-  touch "$MODPATH/apply_iptables.sh"
-  ui_print "- Iptables rules will be applied in every boot."
-  ;;
-*)
-  touch "$MODPATH/manual"
-  ui_print "- Iptables rules will not be applied in every boot."
-  ;;
-esac
+chmod +x "$BIN_DIR/AdGuardHome"
+chmod +x "$SCRIPT_DIR/apply_iptables.sh"
+chmod +x "$SCRIPT_DIR/flush_iptables.sh"
+chmod +x "$SCRIPT_DIR/start.sh"
+chmod +x "$SERVICE_DIR/agh_service.sh"
+chmod +x "$MODPATH/uninstall.sh"
+chown root:net_raw "$BIN_DIR/AdGuardHome"
 
 ui_print "- Installation is complete, please restart your device."
