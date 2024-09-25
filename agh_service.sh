@@ -1,13 +1,15 @@
 #!/system/bin/sh
 
 (
-  until [ "$(getprop init.svc.bootanim)" = "stopped" ]; do
+  while [ "$(getprop init.svc.bootanim)" != "stopped" ]; do
+    echo "Waiting for system to finish booting..." >/data/adb/agh/agh.log
     sleep 5
   done
+  AGH_DIR="/data/adb/agh"
+  SCRIPT_DIR="$AGH_DIR/scripts"
 
-  if [ -f "/data/adb/agh/scripts/start.sh" ]; then
-    /data/adb/agh/scripts/start.sh
-  else
-    echo "File '/data/adb/agh/scripts/start.sh' not found"
-  fi
+  $SCRIPT_DIR/service.sh stop >$AGH_DIR/agh.log 2>&1 &&
+    $SCRIPT_DIR/iptables.sh disable >$AGH_DIR/agh.log 2>&1
+
+  inotifyd $SCRIPT_DIR/inotify.sh /data/adb/modules/AdGuardHome:d,n > /dev/null 2>&1 &
 ) &

@@ -33,5 +33,6 @@ packages_list=()
 
 # 以下内容无需修改
 system_packages_file="/data/system/packages.list"
-iptables_w="iptables -w 64"
-
+agh_pid_file="/data/adb/agh/bin/agh_pid"
+iptables_w="ip6tables -w 64"
+ip6tables_w="ip6tables -w 64"
