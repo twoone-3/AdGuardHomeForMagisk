@@ -1,7 +1,7 @@
 #!/system/bin/sh
 
 (
-  until [ $(getprop init.svc.bootanim) = "stopped" ]; do
+  until [ "$(getprop init.svc.bootanim)" = "stopped" ]; do
     sleep 5
   done
 

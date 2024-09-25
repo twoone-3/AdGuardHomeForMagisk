@@ -6,25 +6,17 @@
 ![Static Badge](https://img.shields.io/badge/arm--64-support-blue)
 ![Static Badge](https://img.shields.io/badge/arm--v7-support-blue)
 ![GitHub all releases](https://img.shields.io/github/downloads/twoone-3/AdguardHome/total)
+[![](https://img.shields.io/badge/Telegram-Join%20Channel-blue?logo=telegram)](https://t.me/adguardhome_for_magisk_release)
+[![](https://img.shields.io/badge/Telegram-Join%20Group-blue?logo=telegram)](https://t.me/+mdZL11mJjxhkYjdl)
 
-加入我们的 [Telegram](https://t.me/adguardhome_for_magisk_release) 频道获取新消息
+关注我们的频道以获取最新消息，或者加入我们的群组进行讨论！
 
 # 用法
 - 使用前需在设置里关闭 `私人/专用dns`，在 Magisk/KernelSU 刷入并按照操作提示配置完成后即可使用，AdGuardHome 后台管理地址为 http://127.0.0.1:3000，默认用户名/密码root
 
 # 特性
-- 主 DNS 为 腾讯 DNSPod 公共 DNS 以及 阿里云 DNS，备用 DNS 为 Cloudflare DNS 和 Google DNS，你可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求
-- 仅内置[秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)，省电，少误杀
-- 可以手动执行脚本来应用 iptables 规则，以将本机的 DNS 请求重定向到 AdGuardHome
-```shell
-# 启动 iptables 规则
-su -c /data/adb/modules/AdGuardHome/bin/apply_iptables.sh
-```
-```shell
-# 停止 iptables 规则
-su -c /data/adb/modules/AdGuardHome/bin/flush_iptables.sh
-```
-- 在项目模块目录下创建 `manual` 文件可选择是否在每次启动时应用 iptables 规则，也就是说只运行 AdGuardHome 主程序
+- 主 DNS 为腾讯和阿里，备用 DNS 为 Cloudflare 和 Google，你可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求
+- 仅内置[秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)，精准，轻量，少误杀
 
 # FAQ
 > Q: 为什么模块无法屏蔽某些广告?

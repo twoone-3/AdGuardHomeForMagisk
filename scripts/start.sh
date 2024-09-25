@@ -11,6 +11,6 @@ export SSL_CERT_DIR="/system/etc/security/cacerts/"
 busybox setuidgid "$adg_user:$adg_group" "$BIN_DIR/AdGuardHome" --logfile "$BIN_DIR/AdGuardHome.log" --no-check-update &
 
 sleep 3
-if [ ! -f "${MODDIR}/manual" ]; then
+if [ "$manual" = false ]; then
   "$SCRIPT_DIR/apply_iptables.sh"
 fi

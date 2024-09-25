@@ -9,7 +9,8 @@ $iptables_w -t nat -D OUTPUT -j ADGUARD
 $iptables_w -t nat -F ADGUARD
 $iptables_w -t nat -X ADGUARD
 
-# ip6tables -w 64 -t filter -D OUTPUT -p udp --dport 53 -j DROP
+ip6tables -w 64 -t filter -D OUTPUT -p udp --dport 53 -j DROP
+ip6tables -w 64 -t filter -D OUTPUT -p tcp --dport 53 -j DROP
 # sysctl -w net.ipv4.ip_forward=1
 # sysctl -w net.ipv6.conf.all.forwarding=0
 # sysctl -w net.ipv6.conf.all.accept_ra=0

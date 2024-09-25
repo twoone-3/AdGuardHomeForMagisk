@@ -6,25 +6,17 @@ A Magisk/KernelSU module to block ads by redirecting and filtering DNS requests.
 ! [Static Badge](https://img.shields.io/badge/arm--64-support-blue)
 ! [Static Badge](https://img.shields.io/badge/arm--v7-support-blue) !
 ! [GitHub all releases](https://img.shields.io/github/downloads/twoone-3/AdguardHome/total)
+[![](https://img.shields.io/badge/Telegram-Join%20Channel-blue?logo=telegram)](https://t.me/adguardhome_for_magisk_release)
+[![](https://img.shields.io/badge/Telegram-Join%20Group-blue?logo=telegram)](https://t.me/+mdZL11mJjxhkYjdl)
 
-Join our [Telegram](https://t.me/adguardhome_for_magisk_release) channel for new messages!
+Follow our channel for the latest news, or join our group for discussion!
 
 # Usage
 - Disable `private/specialized dns` in settings before use, then flush it in Magisk/KernelSU and follow the instructions to configure it, AdGuardHome admin address is http://127.0.0.1:3000, default username/password root.
 
 # Features
 - The primary DNS is Tencent DNSPod public DNS and AliCloud DNS, the backup DNS is Cloudflare DNS and Google DNS, you can change the DNS settings in AdGuardHome to meet your needs.
-- Only built-in [Autumn Breeze Ad Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule), which saves power and reduces false positives.
-- You can manually execute a script to apply iptables rules to redirect local DNS requests to AdGuardHome.
-```shell.
-# Start the iptables rule
-su -c /data/adb/modules/AdGuardHome/bin/apply_iptables.sh
-```
-```shell
-# Stop the iptables rule
-su -c /data/adb/modules/AdGuardHome/bin/flush_iptables.sh
-```
-- Create a `manual` file in the project modules directory to choose whether or not to apply the iptables rules on each startup, i.e., only run the main AdGuardHome program.
+- Only built-in [Autumn Breeze Ad Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule), accurate, lightweight, and low false positives.
 
 # FAQ
 > Q: Why can't the module block some ads?
