@@ -1,5 +1,13 @@
 # BREAKING CHANGES
 - 完全重构了模块，请自行备份旧版配置文件（建议直接重新配置）
 - completely refactored the module, please backup the old configuration file by yourself (it is recommended to reconfigure directly)
-- 更新了DNS服务器，以及广告过滤规则
-- update DNS server and ad filter rules
+- 更新了DNS服务器，以及广告过滤规则，以及README.md
+- update DNS server and ad filter rules and README.md
+- 新增了配置文件，可以在`/data/adb/agh/scripts/config.sh`中修改配置
+- added configuration file, you can modify the configuration in `/data/adb/agh/scripts/config.sh`
+- 新增在 Magisk/KernelSU 中实时启动/停止模块的功能
+- added the ability to start/stop the module in real-time in Magisk/KernelSU
+- 修改备份逻辑，现在会自动备份原模块
+- modified the backup logic, now it will automatically backup the original module
+- 新增黑白名单功能，理论上是可以分应用，不过目前貌似没有效果，请自行测试
+- added black and white list function, theoretically can be separated by application, but currently seems to have no effect, please test by yourself

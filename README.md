@@ -17,11 +17,14 @@
 # 特性
 - 主 DNS 为腾讯和阿里，备用 DNS 为 Cloudflare 和 Google，你可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求
 - 仅内置[秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)，精准，轻量，少误杀
+- 在 Magisk/KernelSU 中可以通过模块开关实时启动/关闭模块
+- 可修改位于 `/data/adb/agh/scripts/config.sh` 的配置文件来调整配置
+- 覆盖安装时会自动给原模块创建备份
 
 # FAQ
 > Q: 为什么模块无法屏蔽某些广告?
 
-> A: 模块通过转发 53 端口的 DNS 请求来实现广告屏蔽，因此无法屏蔽通过 HTTPS 传输的广告，如 Youtube、Twitter 等
+> A: 模块通过转发 53 端口的 DNS 请求来实现广告屏蔽，因此无法屏蔽通过 HTTPS 传输的广告，以及与正常内容同域名的广告，如 知乎，Youtube 等
 
 > Q: 为什么装上模块后访问页面变慢?
 
@@ -31,13 +34,10 @@
 
 > A: 由于公共 DNS 请求较慢，模块默认配置文件里开启了乐观缓存，可能导致一些过时的 IP 在过期后仍然被使用，可在后台清理DNS缓存来缓解，或者关闭乐观缓存
 
-> Q: 模块可以与代理软件一起使用吗?
+> Q: 模块可以与其它代理模块/软件一起使用吗?
 
-> A: 可以，但是可能会导致一些问题，如某些节点无法访问，如这种情况很严重，请参见上一条 FAQ，关闭乐观缓存
+> A: 可以，一般的代理app可以直接兼容，且 AdGuardHome 的 DNS 查询会经过 VPN，其它代理模块看情况使用，可关闭自动 iptables 规则当作普通 DNS 使用
 
-> Q: 模块与其它代理模块冲突吗?
-
-> A: 不冲突，将代理模块的 DNS 服务器填写为 127.0.0.1:5591 即可
 
 # 鸣谢
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)

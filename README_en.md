@@ -17,27 +17,26 @@ Follow our channel for the latest news, or join our group for discussion!
 # Features
 - The primary DNS is Tencent DNSPod public DNS and AliCloud DNS, the backup DNS is Cloudflare DNS and Google DNS, you can change the DNS settings in AdGuardHome to meet your needs.
 - Only built-in [Autumn Breeze Ad Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule), accurate, lightweight, and low false positives.
+- In Magisk/KernelSU, you can start/stop the module in real-time through the module switch.
+- You can modify the configuration file located in `/data/adb/agh/scripts/config.sh` to adjust the configuration.
+- When overwriting installation, the original module will be automatically backed up.
 
 # FAQ
 > Q: Why can't the module block some ads?
 
-> A: The module blocks ads by forwarding DNS requests on port 53, so it can't block ads delivered over HTTPS, such as Youtube, Twitter, etc.
+> A: The module blocks ads by forwarding DNS requests on port 53, so it cannot block ads transmitted over HTTPS or ads on the same domain as normal content, such as Zhihu, Youtube, etc.
 
-> Q: Why the page access slows down after installing the module?
+> Q: Why does the page slow down after installing the module?
 
-> A: Because the module forwards all DNS requests to AdGuardHome, which in turn forwards them to the upstream public DNS, there is an extra layer of forwarding, but the module has optimistic caching turned on by default, which greatly reduces the latency on the second visit.
+> A: Because the module forwards all DNS requests to AdGuardHome, which then forwards them to the upstream public DNS, adding an extra layer of forwarding, but the module has optimistic caching enabled by default, which greatly reduces latency on the second visit.
 
-> Q: Why the page that was accessible is not accessible after a while?
+> Q: Why can't I access a page that I could access before after a while?
 
-> A: Due to the slower public DNS requests, the module has optimistic caching enabled in the default configuration file, which may lead to some outdated IPs still being used after the expiration date, you can clean up DNS cache in the background to alleviate the problem, or turn off optimistic caching.
+> A: Because public DNS requests are slow, the module's default configuration file has optimistic caching enabled, which may cause some outdated IPs to continue to be used after they expire, you can clear the DNS cache in the background to alleviate this, or disable optimistic caching.
 
-> Q: Can the module be used with proxy software?
+> Q: Can the module be used with other proxy modules/software?
 
-> A: Yes, but it may cause some problems, such as some nodes being unreachable. If this is a serious issue, please see the previous FAQ to turn off optimistic caching.
-
-> Q: Does the module conflict with other proxy modules?
-
-> A: No, you can use 127.0.0.1:5591 as the DNS server of the proxy module.
+> A: Yes, general proxy apps are directly compatible, and AdGuardHome's DNS queries will pass through the VPN, other proxy modules can be used as needed, you can disable automatic iptables rules to use it as a regular DNS.
 
 # Acknowledgments
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)

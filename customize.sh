@@ -26,11 +26,11 @@ unzip -o "$ZIPFILE" "bin/*" -d $AGH_DIR
 
 ui_print "- Setting permissions..."
 chmod +x "$BIN_DIR/AdGuardHome"
-chmod +x "$SCRIPT_DIR/apply_iptables.sh"
-chmod +x "$SCRIPT_DIR/flush_iptables.sh"
-chmod +x "$SCRIPT_DIR/start.sh"
+chmod +x "$SCRIPT_DIR/inotify.sh"
+chmod +x "$SCRIPT_DIR/iptables.sh"
+chmod +x "$SCRIPT_DIR/service.sh"
 chmod +x "$SERVICE_DIR/agh_service.sh"
 chmod +x "$MODPATH/uninstall.sh"
 chown root:net_raw "$BIN_DIR/AdGuardHome"
 
-ui_print "- Installation is complete, please restart your device."
+ui_print "- Installation completed, please reboot."
