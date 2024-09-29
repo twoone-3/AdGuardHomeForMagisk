@@ -47,31 +47,31 @@ disable_iptables() {
 }
 
 enable_ipv6() {
-  # $ip6tables_w -t filter -D OUTPUT -p udp --dport 53 -j DROP
-  # $ip6tables_w -t filter -D OUTPUT -p tcp --dport 53 -j DROP
+  $ip6tables_w -t filter -D OUTPUT -p udp --dport 53 -j DROP
+  $ip6tables_w -t filter -D OUTPUT -p tcp --dport 53 -j DROP
 
-  sysctl -w net.ipv4.ip_forward=1
-  sysctl -w net.ipv6.conf.all.forwarding=1
+  # sysctl -w net.ipv4.ip_forward=1
+  # sysctl -w net.ipv6.conf.all.forwarding=1
 
-  sysctl -w net.ipv6.conf.all.accept_ra=2
-  sysctl -w net.ipv6.conf.wlan0.accept_ra=2
-  sysctl -w net.ipv6.conf.all.disable_ipv6=0
-  sysctl -w net.ipv6.conf.default.disable_ipv6=0
-  sysctl -w net.ipv6.conf.wlan0.disable_ipv6=0
+  # sysctl -w net.ipv6.conf.all.accept_ra=2
+  # sysctl -w net.ipv6.conf.wlan0.accept_ra=2
+  # sysctl -w net.ipv6.conf.all.disable_ipv6=0
+  # sysctl -w net.ipv6.conf.default.disable_ipv6=0
+  # sysctl -w net.ipv6.conf.wlan0.disable_ipv6=0
 }
 
 disable_ipv6() {
-  # $ip6tables_w -t filter -A OUTPUT -p udp --dport 53 -j DROP
-  # $ip6tables_w -t filter -A OUTPUT -p tcp --dport 53 -j DROP
+  $ip6tables_w -t filter -A OUTPUT -p udp --dport 53 -j DROP
+  $ip6tables_w -t filter -A OUTPUT -p tcp --dport 53 -j DROP
 
-  sysctl -w net.ipv4.ip_forward=1
-  sysctl -w net.ipv6.conf.all.forwarding=0
+  # sysctl -w net.ipv4.ip_forward=1
+  # sysctl -w net.ipv6.conf.all.forwarding=0
 
-  sysctl -w net.ipv6.conf.all.accept_ra=0
-  sysctl -w net.ipv6.conf.wlan0.accept_ra=0
-  sysctl -w net.ipv6.conf.all.disable_ipv6=1
-  sysctl -w net.ipv6.conf.default.disable_ipv6=1
-  sysctl -w net.ipv6.conf.wlan0.disable_ipv6=1
+  # sysctl -w net.ipv6.conf.all.accept_ra=0
+  # sysctl -w net.ipv6.conf.wlan0.accept_ra=0
+  # sysctl -w net.ipv6.conf.all.disable_ipv6=1
+  # sysctl -w net.ipv6.conf.default.disable_ipv6=1
+  # sysctl -w net.ipv6.conf.wlan0.disable_ipv6=1
 }
 
 case "$1" in

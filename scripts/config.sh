@@ -10,7 +10,7 @@ fi
 # false: 关闭
 manual=false
 
-# 是否开启 ipv6，默认关闭，开启可能导致某些应用走v6无法屏蔽广告
+# 是否开启 ipv6 DNS 查询，建议关闭
 # true: 开启
 # false: 关闭
 ipv6=false
