@@ -12,7 +12,7 @@
 关注我们的频道以获取最新消息，或者加入我们的群组进行讨论！
 
 # 用法
-- 使用前需在设置里关闭 `私人/专用dns`，在 Magisk/KernelSU 刷入并按照操作提示配置完成后即可使用，AdGuardHome 后台管理地址为 http://127.0.0.1:3000，默认用户名/密码root
+- 使用前需在设置里关闭 `私人/专用dns`，在 Magisk/KernelSU 刷入并按照操作提示配置完成后即可使用，AdGuardHome 后台管理地址为 http://127.0.0.1:3000 ，默认用户名/密码root
 
 # 特性
 - 主 DNS 为腾讯和阿里，备用 DNS 为 Cloudflare 和 Google，你可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求
