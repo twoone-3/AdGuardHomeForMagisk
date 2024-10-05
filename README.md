@@ -12,10 +12,11 @@
 关注我们的频道以获取最新消息，或者加入我们的群组进行讨论！
 
 # 用法
-- 使用前需在设置里关闭 `私人/专用dns`，在 Magisk/KernelSU 刷入并按照操作提示配置完成后即可使用，AdGuardHome 后台管理地址为 http://127.0.0.1:3000 ，默认用户名/密码root
+- 使用前需在设置里关闭 `私人/专用dns`，在 Magisk/KernelSU 刷入后即可使用，本模块默认后台管理地址为 http://127.0.0.1:3000 ，默认用户名/密码root
+- 如果你从来没有接触过 AdGuardHome，你可以在这里找到[官方文档](https://github.com/AdguardTeam/AdGuardHome)，或者也可以看看这篇教程[AdGuard Home 中文指南](https://www.timochan.cn/posts/jc/adguard_home_configuration_guide)
 
 # 特性
-- 主 DNS 为腾讯和阿里，备用 DNS 为 Cloudflare 和 Google，你可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求
+- DNS 服务器选用腾讯和阿里的公共 DNS，你也可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求
 - 仅内置[秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)，精准，轻量，少误杀
 - 在 Magisk/KernelSU 中可以通过模块开关实时启动/关闭模块
 - 可修改位于 `/data/adb/agh/scripts/config.sh` 的配置文件来调整配置

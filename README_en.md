@@ -12,10 +12,11 @@ A Magisk/KernelSU module to block ads by redirecting and filtering DNS requests.
 Follow our channel for the latest news, or join our group for discussion!
 
 # Usage
-- Disable `private/specialized dns` in settings before use, then flush it in Magisk/KernelSU and follow the instructions to configure it, AdGuardHome admin address is http://127.0.0.1:3000, default username/password root.
+- Before using, turn off `Private/Custom DNS` in the settings, flash it in Magisk/KernelSU, and you can use it after installation. The default background management address is http://127.0.0.1:3000, and the default username/password is root.
+- If you have never used AdGuardHome before, you can find the [official documentation](https://github.com/AdguardTeam/AdGuardHome) here, or you can also take a look at this tutorial [AdGuard Home 中文指南](https://www.timochan.cn/posts/jc/adguard_home_configuration_guide)
 
 # Features
-- The primary DNS is Tencent DNSPod public DNS and AliCloud DNS, the backup DNS is Cloudflare DNS and Google DNS, you can change the DNS settings in AdGuardHome to meet your needs.
+- The DNS server uses Tencent and Alibaba's public DNS, you can also change it in the DNS settings of AdGuardHome to meet your needs.
 - Only built-in [Autumn Breeze Ad Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule), accurate, lightweight, and low false positives.
 - In Magisk/KernelSU, you can start/stop the module in real-time through the module switch.
 - You can modify the configuration file located in `/data/adb/agh/scripts/config.sh` to adjust the configuration.
