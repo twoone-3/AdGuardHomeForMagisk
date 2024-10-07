@@ -2,8 +2,8 @@
 
 (
   while [ "$(getprop init.svc.bootanim)" != "stopped" ]; do
-    echo "Waiting for system to finish booting..." >/data/adb/agh/agh.log
-    sleep 5
+    echo "Waiting for system to finish booting..." >>/data/adb/agh/agh.log
+    sleep 8
   done
   AGH_DIR="/data/adb/agh"
   SCRIPT_DIR="$AGH_DIR/scripts"

@@ -18,26 +18,26 @@
 # 特性
 - DNS 服务器选用腾讯和阿里的公共 DNS，你也可以在 AdGuardHome 的 DNS 设置里更改来满足你的需求
 - 仅内置[秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)，精准，轻量，少误杀
-- 在 Magisk/KernelSU 中可以通过模块开关实时启动/关闭模块
+- 在 Magisk/KernelSU 中可以通过模块开关实时启动/关闭模块，当然你也可以在shell中模拟模块开关
+```shell
+touch /data/adb/modules/AdguardHome/disable
+```
 - 可修改位于 `/data/adb/agh/scripts/config.sh` 的配置文件来调整配置
-- 覆盖安装时会自动给原模块创建备份
+- 在更新模块时，用户可自行选择是否保留原来的配置文件，即使你选择不保留，也会自动备份原来的配置文件到 `/data/adb/agh/backup` 目录下
 
 # FAQ
-> Q: 为什么模块无法屏蔽某些广告?
+> Q: 为什么模块无法屏蔽全部广告?
 
-> A: 模块通过转发 53 端口的 DNS 请求来实现广告屏蔽，因此无法屏蔽通过 HTTPS 传输的广告，以及与正常内容同域名的广告，如 知乎，Youtube 等
-
-> Q: 为什么装上模块后访问页面变慢?
-
-> A: 因为模块会将所有 DNS 请求转发到 AdGuardHome，再由 AdGuardHome 转发到上游的公共 DNS，中间多了一层转发，但模块默认开启了乐观缓存，在第二次访问时将大大减少延迟
-
-> Q: 为什么本来可以访问的页面一段时间后出现了无法访问?
-
-> A: 由于公共 DNS 请求较慢，模块默认配置文件里开启了乐观缓存，可能导致一些过时的 IP 在过期后仍然被使用，可在后台清理DNS缓存来缓解，或者关闭乐观缓存
+> A: 模块通过转发 53 端口的 DNS 请求来实现广告屏蔽，因此无法屏蔽通过 HTTPS 传输的广告，以及与正常内容同域名的广告，如 知乎，Youtube 等，好在大部分广告还是优先使用 53 端口的 DNS 请求。
 
 > Q: 模块可以与其它代理模块/软件一起使用吗?
 
-> A: 可以，一般的代理app可以直接兼容，且 AdGuardHome 的 DNS 查询会经过 VPN，其它代理模块看情况使用，可关闭自动 iptables 规则当作普通 DNS 使用
+> A: 可以，一般的代理app可以直接兼容(这里推荐使用[FlClash](https://github.com/chen08209/FlClash))，且 AdGuardHome 的 DNS 查询会经过 VPN，其它代理模块看情况使用，可关闭自动 iptables 规则当作普通 DNS 使用
+
+> Q: 为什么不接入 KernelSU 的 WebUI?
+
+> A: 由于 KernelSU 的 WebUI 在无法显示确认弹窗，导致 AdGuardHome 管理端一些功能无法使用，因此暂时不接入
+
 
 
 # 鸣谢

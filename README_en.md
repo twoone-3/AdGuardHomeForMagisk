@@ -18,29 +18,27 @@ Follow our channel for the latest news, or join our group for discussion!
 # Features
 - The DNS server uses Tencent and Alibaba's public DNS, you can also change it in the DNS settings of AdGuardHome to meet your needs.
 - Only built-in [Autumn Breeze Ad Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule), accurate, lightweight, and low false positives.
-- In Magisk/KernelSU, you can start/stop the module in real-time through the module switch.
+- In Magisk/KernelSU, you can start/stop the module in real-time using the module switch, or you can simulate the module switch in the shell.
+```shell
+touch /data/adb/modules/AdguardHome/disable
+```
 - You can modify the configuration file located in `/data/adb/agh/scripts/config.sh` to adjust the configuration.
-- When overwriting installation, the original module will be automatically backed up.
+- When updating the module, users can choose whether to keep the original configuration file, even if you choose not to keep it, the original configuration file will be automatically backed up to the `/data/adb/agh/backup` directory.
 
 # FAQ
-> Q: Why can't the module block some ads?
+> Q: Why can't the module block all ads?
 
-> A: The module blocks ads by forwarding DNS requests on port 53, so it cannot block ads transmitted over HTTPS or ads on the same domain as normal content, such as Zhihu, Youtube, etc.
-
-> Q: Why does the page slow down after installing the module?
-
-> A: Because the module forwards all DNS requests to AdGuardHome, which then forwards them to the upstream public DNS, adding an extra layer of forwarding, but the module has optimistic caching enabled by default, which greatly reduces latency on the second visit.
-
-> Q: Why can't I access a page that I could access before after a while?
-
-> A: Because public DNS requests are slow, the module's default configuration file has optimistic caching enabled, which may cause some outdated IPs to continue to be used after they expire, you can clear the DNS cache in the background to alleviate this, or disable optimistic caching.
+> A: The module blocks ads by forwarding DNS requests on port 53, so it cannot block ads transmitted over HTTPS or ads on the same domain as normal content, such as Zhihu, Youtube, etc., but fortunately, most ads still prefer to use DNS requests on port 53.
 
 > Q: Can the module be used with other proxy modules/software?
 
-> A: Yes, general proxy apps are directly compatible, and AdGuardHome's DNS queries will pass through the VPN, other proxy modules can be used as needed, you can disable automatic iptables rules to use it as a regular DNS.
+> A: Yes, general proxy apps can be directly compatible (here we recommend using [FlClash](https://github.com/chen08209/FlClash)), and AdGuardHome's DNS queries will pass through the VPN, other proxy modules can be used as needed, and the automatic iptables rules can be turned off for normal DNS use.
+
+> Q: Why not integrate with KernelSU's WebUI?
+
+> A: Because KernelSU's WebUI cannot display confirmation pop-ups, some functions of AdGuardHome's management end cannot be used, so it is not integrated for the time being.
 
 # Acknowledgments
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)
 - [akashaProxy](https://github.com/ModuleList/akashaProxy)
 - [box_for_magisk](https://github.com/taamarin/box_for_magisk)
-- Translated with DeepL.com (free version)

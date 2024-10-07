@@ -5,7 +5,7 @@ if ! command -v busybox &> /dev/null; then
   export PATH="/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH:/system/bin"
 fi
 
-# 是否手动模式，默认关闭，开启后不会自动应用iptables规则
+# 手动模式，默认关闭，开启后iptables.sh将跳过运行，如果你要在开机状态下修改本项，请先在Magisk/KernelSU关闭模块以确保预期的行为
 # true: 开启
 # false: 关闭
 manual=false

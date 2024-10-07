@@ -23,18 +23,21 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-    - tls://223.5.5.5
-    - tls://1.12.12.12
+    - https://223.5.5.5/dns-query
+    - https://1.12.12.12/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
     - 223.5.5.5
     - 119.29.29.29
   fallback_dns: []
-  upstream_mode: load_balance
+  upstream_mode: parallel
   fastest_timeout: 1s
   allowed_clients: []
   disallowed_clients: []
-  blocked_hosts: []
+  blocked_hosts:
+    - version.bind
+    - id.server
+    - hostname.bind
   trusted_proxies:
     - 127.0.0.0/8
     - ::1/128
@@ -140,7 +143,7 @@ filtering:
   parental_cache_size: 1048576
   cache_time: 30
   filters_update_interval: 168
-  blocked_response_ttl: 10
+  blocked_response_ttl: 30
   filtering_enabled: true
   parental_enabled: false
   safebrowsing_enabled: false
