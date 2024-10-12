@@ -18,7 +18,7 @@ if [ "${monitor_file}" = "disable" ]; then
       sed -i "s/description=\[.*\]/description=\[😎AdGuardHome is running but ⛓️‍💥iptables is disabled\]/" "$MOD_PATH/module.prop"
     fi
   elif [ "${events}" = "n" ]; then
-    if [ -f "/data/adb/modules/AdGuardHome/disable_iptable" ]; then
+    if [ ! -f "/data/adb/modules/AdGuardHome/disable_iptable" ]; then
       $SCRIPT_DIR/iptables.sh disable
     fi
     $SCRIPT_DIR/service.sh stop
