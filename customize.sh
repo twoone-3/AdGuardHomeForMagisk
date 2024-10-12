@@ -26,8 +26,8 @@ if [ -d "$AGH_DIR" ]; then
     rm "$pid_file"
     sleep 1
   fi
-  ui_print "- 发现旧版模块，是否保留原来的配置文件？"
-  ui_print "- Found old version, do you want to keep the old configuration?"
+  ui_print "- 发现旧版模块，是否保留原来的配置文件？（若不保留则自动备份）"
+  ui_print "- Found old version, do you want to keep the old configuration? (If not, it will be automatically backed up)"
   ui_print "- (音量上键 = 是, 音量下键 = 否)"
   ui_print "- (Volume Up = Yes, Volume Down = No)"
   key_click=""
@@ -68,6 +68,30 @@ else
   unzip -o "$ZIPFILE" "scripts/*" -d $AGH_DIR
   unzip -o "$ZIPFILE" "bin/*" -d $AGH_DIR
 fi
+
+  ui_print "- 是否需要禁用用于转发 DNS 请求的 iptables 规则？"
+  ui_print "- Do you want to disable iptables rules for forwarding DNS requests?"
+  ui_print "- (音量上键 = 是, 音量下键 = 否)"
+  ui_print "- (Volume Up = Yes, Volume Down = No)"
+  key_click=""
+  while [ "$key_click" = "" ]; do
+    key_click="$(getevent -qlc 1 | awk '{ print $3 }' | grep 'KEY_')"
+    sleep 0.2
+  done
+  case "$key_click" in
+  "KEY_VOLUMEUP")
+    ui_print "- 创建 disable_iptable 文件..."
+    ui_print "- Creating disable_iptable file..."
+    touch "$MODPATH/disable_iptable"
+    ;;
+  *)
+    if [ -f "$MODPATH/disable_iptable" ]; then
+      ui_print "- 删除 disable_iptable 文件..."
+      ui_print "- Deleting disable_iptable file..."
+      rm "$MODPATH/disable_iptable"
+    fi
+    ;;
+  esac
 
 ui_print "- 正在设置权限..."
 ui_print "- Setting permissions..."

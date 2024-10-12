@@ -74,10 +74,6 @@ disable_ipv6() {
   # sysctl -w net.ipv6.conf.wlan0.disable_ipv6=1
 }
 
-if [ "$manual" = true ]; then
-  exit 0
-fi
-
 case "$1" in
 enable)
   enable_iptables

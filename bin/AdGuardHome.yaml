@@ -30,7 +30,7 @@ dns:
     - 223.5.5.5
     - 119.29.29.29
   fallback_dns: []
-  upstream_mode: parallel
+  upstream_mode: load_balance
   fastest_timeout: 1s
   allowed_clients: []
   disallowed_clients: []
@@ -130,6 +130,7 @@ filtering:
     enabled: false
     bing: true
     duckduckgo: true
+    ecosia: true
     google: true
     pixabay: true
     yandex: true
@@ -138,12 +139,13 @@ filtering:
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
   rewrites: []
+  safe_fs_patterns: []
   safebrowsing_cache_size: 1048576
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576
   cache_time: 30
   filters_update_interval: 168
-  blocked_response_ttl: 30
+  blocked_response_ttl: 10
   filtering_enabled: true
   parental_enabled: false
   safebrowsing_enabled: false
@@ -169,4 +171,4 @@ os:
   group: ""
   user: ""
   rlimit_nofile: 0
-schema_version: 28
+schema_version: 29
