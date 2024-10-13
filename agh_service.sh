@@ -7,7 +7,7 @@ MOD_PATH="/data/adb/modules/AdGuardHome"
 (
   exec >$AGH_DIR/agh.log 2>&1
   while [ "$(getprop init.svc.bootanim)" != "stopped" ]; do
-    echo "Waiting for system to finish booting..." >>/data/adb/agh/agh.log
+    echo "Waiting for system to finish booting..."
     sleep 8
   done
 

@@ -6,10 +6,6 @@ SCRIPT_DIR="$AGH_DIR/scripts"
 source "$AGH_DIR/scripts/config.sh"
 
 start_bin() {
-  if [ -f "$agh_pid_file" ]; then
-    echo "AdGuardHome is already running"
-    exit 1
-  fi
   # to fix https://github.com/AdguardTeam/AdGuardHome/issues/7002
   export SSL_CERT_DIR="/system/etc/security/cacerts/"
   busybox setuidgid "$adg_user:$adg_group" "$BIN_DIR/AdGuardHome" --logfile "$BIN_DIR/AdGuardHome.log" --no-check-update &
@@ -17,10 +13,6 @@ start_bin() {
 }
 
 stop_bin() {
-  if [ ! -f "$agh_pid_file" ]; then
-    echo "AdGuardHome is not running"
-    exit 1
-  fi
   kill -9 $(cat "$agh_pid_file")
   rm "$agh_pid_file"
 }

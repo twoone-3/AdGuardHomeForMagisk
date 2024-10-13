@@ -184,7 +184,6 @@
 ||bingads.microsoft.com^
 ||bj.ad.track.66mobi.com^
 ||books-analytics-events.apple.com^
-||bossaudioandcomic-1252317822.image.myqcloud.com^
 ||bsrv.qq.com^
 ||bugly.qq.com^
 ||business-api.tiktok.com^
@@ -213,12 +212,6 @@
 ||commdata.v.qq.com^
 ||config.chsmarttv.com^
 ||config.unityads.unity3d.com^
-||conn-service-cn-03.allawntech.com^
-||conn-service-cn-04.allawntech.com^
-||conn-service-cn-05.allawntech.com^
-||conn-service-in-03.allawnos.com^
-||conn-service-in-04.allawnos.com^
-||conn-service-in-05.allawnos.com^
 ||cpro.baidustatic.com^
 ||crashlytics.com^
 ||crashlyticsreports-pa.googleapis.com^
@@ -369,7 +362,6 @@
 ||m.atm.youku.com^
 ||m.kubiqq.com^
 ||m1.ad.10010.com^
-||manhua.acimg.cn^
 ||mapi.m.jd.com^
 ||masdkv6.3g.qq.com^
 ||mazu.m.qq.com^
@@ -636,7 +628,7 @@
 ||ykad-gateway.youku.com^
 ||youku-acs.m.taobao.com^
 ||youxi.kugou.com^
-/.*\..*\.shouji\.sogou\.com/
+/.*\.*\.shouji\.sogou\.com/
 /.*\.[a-zA-Z0-9.-]skwai\.com/
 /.*\.a\.market\.xiaomi\.com/
 /.*\.data\.hicloud\.com/
