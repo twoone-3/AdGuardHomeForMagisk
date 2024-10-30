@@ -3,6 +3,8 @@
 AGH_DIR="/data/adb/agh"
 source "$AGH_DIR/scripts/config.sh"
 
+exec >>$AGH_DIR/agh.log 2>&1
+
 find_packages_uid() {
   uid_list=()
   for package in "${packages_list[@]}"; do

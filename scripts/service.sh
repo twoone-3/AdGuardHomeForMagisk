@@ -5,6 +5,8 @@ BIN_DIR="$AGH_DIR/bin"
 SCRIPT_DIR="$AGH_DIR/scripts"
 source "$AGH_DIR/scripts/config.sh"
 
+exec >>$AGH_DIR/agh.log 2>&1
+
 start_bin() {
   # to fix https://github.com/AdguardTeam/AdGuardHome/issues/7002
   export SSL_CERT_DIR="/system/etc/security/cacerts/"

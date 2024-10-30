@@ -8,21 +8,25 @@ MOD_PATH="/data/adb/modules/AdGuardHome"
 
 exec >>$AGH_DIR/agh.log 2>&1
 
+update_description () {
+  sed -i "s/description=\[.*\]/description=\[$1\]/" "$MOD_PATH/module.prop"
+}
+
 if [ "${monitor_file}" = "disable" ]; then
   if [ "${events}" = "d" ]; then
     $SCRIPT_DIR/service.sh start
     if [ ! -f "/data/adb/modules/AdGuardHome/disable_iptable" ]; then
       $SCRIPT_DIR/iptables.sh enable
-      sed -i "s/description=\[.*\]/description=\[😎AdGuardHome is running and 🔗iptables is enabled\]/" "$MOD_PATH/module.prop"
+      update_description "🟢AdGuardHome is running | iptables is enabled"
     else
-      sed -i "s/description=\[.*\]/description=\[😎AdGuardHome is running but ⛓️‍💥iptables is disabled\]/" "$MOD_PATH/module.prop"
+      update_description "🟢AdGuardHome is running | iptables is disabled"
     fi
   elif [ "${events}" = "n" ]; then
     if [ ! -f "/data/adb/modules/AdGuardHome/disable_iptable" ]; then
       $SCRIPT_DIR/iptables.sh disable
     fi
     $SCRIPT_DIR/service.sh stop
-    sed -i "s/description=\[.*\]/description=\[😐AdGuardHome is stopped and ⛓️‍💥iptables is disabled\]/" "$MOD_PATH/module.prop"
+    update_description "🔴AdGuardHome is stopped"
   fi
 fi
 
@@ -30,12 +34,12 @@ if [ "${monitor_file}" = "disable_iptable" ]; then
   if [ "${events}" = "d" ]; then
     if [ ! -f "/data/adb/modules/AdGuardHome/disable" ]; then
       $SCRIPT_DIR/iptables.sh enable
-      sed -i "s/description=\[.*\]/description=\[😎AdGuardHome is running and 🔗iptables is enabled\]/" "$MOD_PATH/module.prop"
+      update_description "🟢AdGuardHome is running | iptables is enabled"
     fi
   elif [ "${events}" = "n" ]; then
     if [ ! -f "/data/adb/modules/AdGuardHome/disable" ]; then
       $SCRIPT_DIR/iptables.sh disable
-      sed -i "s/description=\[.*\]/description=\[😎AdGuardHome is running but ⛓️‍💥iptables is disabled\]/" "$MOD_PATH/module.prop"
+      update_description "🟢AdGuardHome is running | iptables is disabled"
     fi
   fi
 fi
