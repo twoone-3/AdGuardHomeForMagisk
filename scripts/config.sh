@@ -5,12 +5,10 @@ if ! command -v busybox &> /dev/null; then
   export PATH="/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH:/system/bin"
 fi
 
-# 是否开启 ipv6 DNS 查询，建议关闭
-# true: 开启
-# false: 关闭
+# 是否启用 ipv6，因为ipv6的DNS请求无法转发，所以默认关闭
 ipv6=false
 
-# 路由模式选择
+# 路由模式选择，不需要更改
 # true: 黑名单
 # false: 白名单
 use_blacklist=true
@@ -25,9 +23,3 @@ adg_group="net_raw"
 # 应用包名列表
 # 例如: ("com.tencent.mm" "com.tencent.mobileqq")
 packages_list=()
-
-# 以下内容无需修改
-system_packages_file="/data/system/packages.list"
-agh_pid_file="/data/adb/agh/bin/agh_pid"
-iptables_w="iptables -w 64"
-ip6tables_w="ip6tables -w 64"

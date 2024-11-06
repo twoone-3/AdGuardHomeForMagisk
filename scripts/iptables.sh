@@ -2,6 +2,10 @@
 
 AGH_DIR="/data/adb/agh"
 source "$AGH_DIR/scripts/config.sh"
+system_packages_file="/data/system/packages.list"
+iptables_w="iptables -w 64"
+ip6tables_w="ip6tables -w 64"
+pref=100
 
 exec >>$AGH_DIR/agh.log 2>&1
 
@@ -49,31 +53,39 @@ disable_iptables() {
 }
 
 enable_ipv6() {
-  $ip6tables_w -t filter -D OUTPUT -p udp --dport 53 -j DROP
-  $ip6tables_w -t filter -D OUTPUT -p tcp --dport 53 -j DROP
+  sysctl -w net.ipv4.ip_forward=1
+  sysctl -w net.ipv6.conf.all.forwarding=1
 
-  # sysctl -w net.ipv4.ip_forward=1
-  # sysctl -w net.ipv6.conf.all.forwarding=1
-
-  # sysctl -w net.ipv6.conf.all.accept_ra=2
-  # sysctl -w net.ipv6.conf.wlan0.accept_ra=2
+  sysctl -w net.ipv6.conf.all.accept_ra=2
+  sysctl -w net.ipv6.conf.wlan0.accept_ra=2
   sysctl -w net.ipv6.conf.all.disable_ipv6=0
   sysctl -w net.ipv6.conf.default.disable_ipv6=0
-  # sysctl -w net.ipv6.conf.wlan0.disable_ipv6=0
+  sysctl -w net.ipv6.conf.wlan0.disable_ipv6=0
+
+  # del: block Askes ipv6 completely
+  ip -6 rule del unreachable pref "${pref}"
+
+  # del: blocks all outgoing IPv6 traffic using the UDP protocol to port 53, effectively preventing DNS queries over IPv6.
+  $ip6tables_w -D OUTPUT -p udp --dport 53 -j DROP
+  # $ip6tables_w -D OUTPUT -p tcp --dport 53 -j DROP
 }
 
 disable_ipv6() {
-  $ip6tables_w -t filter -A OUTPUT -p udp --dport 53 -j DROP
-  $ip6tables_w -t filter -A OUTPUT -p tcp --dport 53 -j DROP
+  sysctl -w net.ipv4.ip_forward=1
+  sysctl -w net.ipv6.conf.all.forwarding=0
 
-  # sysctl -w net.ipv4.ip_forward=1
-  # sysctl -w net.ipv6.conf.all.forwarding=0
-
-  # sysctl -w net.ipv6.conf.all.accept_ra=0
-  # sysctl -w net.ipv6.conf.wlan0.accept_ra=0
+  sysctl -w net.ipv6.conf.all.accept_ra=0
+  sysctl -w net.ipv6.conf.wlan0.accept_ra=0
   sysctl -w net.ipv6.conf.all.disable_ipv6=1
   sysctl -w net.ipv6.conf.default.disable_ipv6=1
-  # sysctl -w net.ipv6.conf.wlan0.disable_ipv6=1
+  sysctl -w net.ipv6.conf.wlan0.disable_ipv6=1
+
+  # add: block Askes ipv6 completely
+  ip -6 rule add unreachable pref "${pref}"
+
+  # add: blocks all outgoing IPv6 traffic using the UDP protocol to port 53, effectively preventing DNS queries over IPv6.
+  $ip6tables_w -A OUTPUT -p udp --dport 53 -j DROP
+  # $ip6tables_w -A OUTPUT -p tcp --dport 53 -j DROP
 }
 
 case "$1" in

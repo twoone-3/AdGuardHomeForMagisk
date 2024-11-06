@@ -34,5 +34,5 @@ exec >$AGH_DIR/agh.log 2>&1
     update_description "🔴AdGuardHome is stopped"
   fi
 
-  inotifyd $SCRIPT_DIR/inotify.sh $MOD_PATH:d,n >/dev/null 2>&1 &
+  inotifyd $SCRIPT_DIR/inotify.sh $MOD_PATH:d,n &
 ) &

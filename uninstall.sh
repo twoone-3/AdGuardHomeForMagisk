@@ -2,12 +2,6 @@
 
 AGH_DIR="/data/adb/agh" 
 
-if [ ! -d "${AGH_DIR}" ]; then
-  exit 1
-else
+if [ -d "${AGH_DIR}" ]; then
   rm -rf "${AGH_DIR}"
-fi
-
-if [ -f "/data/adb/service.d/agh_service.sh" ]; then
-  rm "/data/adb/service.d/agh_service.sh"
 fi
