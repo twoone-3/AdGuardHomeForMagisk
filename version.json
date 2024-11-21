@@ -1,6 +1,6 @@
 {
-  "versionCode": 25,
-  "version": "20241109",
+  "versionCode": 26,
+  "version": "20241121",
   "zipUrl": "https://github.com/twoone-3/AdGuardHomeForMagisk/releases/latest/download/AdGuardHomeForMagisk_arm64.zip",
   "changelog": "https://raw.githubusercontent.com/twoone-3/AdGuardHomeForMagisk/main/changelog.md"
 }

@@ -1,9 +1,11 @@
 #!/system/bin/sh
 
-# 添加busybox到PATH
+# 添加 busybox 到 PATH
 if ! command -v busybox &> /dev/null; then
   export PATH="/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH:/system/bin"
 fi
+
+# 本页所有配置需在模块关闭时修改
 
 # 是否启用内置的 iptables 规则
 # 内置的规则会重定向所有 DNS 请求到 AdGuardHome
