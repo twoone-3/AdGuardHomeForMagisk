@@ -37,7 +37,7 @@ AGH_DIR="/data/adb/agh"
 BIN_DIR="$AGH_DIR/bin"
 SCRIPT_DIR="$AGH_DIR/scripts"
 BACKUP_DIR="$AGH_DIR/backup"
-PID_FILE="/data/adb/agh/bin/agh_pid"
+PID_FILE="$AGH_DIR/bin/agh_pid"
 
 i18n_print "- Extracting module basic files..." "- 解压模块基本文件..."
 unzip -o "$ZIPFILE" "uninstall.sh" -d $MODPATH >/dev/null 2>&1

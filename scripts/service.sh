@@ -3,7 +3,7 @@
 AGH_DIR="/data/adb/agh"
 BIN_DIR="$AGH_DIR/bin"
 SCRIPT_DIR="$AGH_DIR/scripts"
-PID_FILE="/data/adb/agh/bin/agh_pid"
+PID_FILE="$AGH_DIR/bin/agh_pid"
 source "$AGH_DIR/scripts/config.sh"
 
 exec >>$AGH_DIR/agh.log 2>&1
