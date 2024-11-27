@@ -1,5 +1,4 @@
-# BREAKING CHANGES
-- 修改了 config.sh 的配置文件格式
-- 现在不会阻断除了 53 端口以外的 ipv6 流量了
-- 将 disable_iptable 文件移到配置文件，详情见 config.sh
-- 更新规则文件
+# Change Log
+- 更新广告规则
+- 给 action.sh 增加了1s的延迟以及刷新页面提示
+- 调整杀死 AdGuardHome 的方式，使其在关闭时能正常保留日志

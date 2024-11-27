@@ -21,7 +21,7 @@ stop_bin() {
     exit 1
   fi
   echo "Stopping AdGuardHome"
-  kill -9 $(cat "$PID_FILE")
+  kill $(cat "$PID_FILE")
   rm "$PID_FILE"
 }
 

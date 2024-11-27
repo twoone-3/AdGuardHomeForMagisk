@@ -28,3 +28,7 @@ else
     update_description "🟢AdGuardHome is running | iptables is disabled"
   fi
 fi
+
+echo "Waiting for 1 second..."
+echo "Refresh the page to see the changes."
+sleep 1

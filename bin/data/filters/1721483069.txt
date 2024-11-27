@@ -52,6 +52,7 @@
 ||ads-api.twitter.com^
 ||ads-img-qc.xhscdn.com^
 ||ads-jp.tiktok.com^
+||ads-marketing-vivofs.vivo.com.cn^
 ||ads-sg.tiktok.com^
 ||ads-us.tiktok.com^
 ||ads-video-al.xhscdn.com^
@@ -127,6 +128,7 @@
 ||alog.umeng.com^
 ||als.baidu.com^
 ||amdcopen.m.taobao.com^
+||amdcopen.m.umeng.com^
 ||an.facebook.com^
 ||analysis.yozocloud.cn^
 ||analytics-api.samsunghealthcn.com^
@@ -155,6 +157,7 @@
 ||api-access.pangolin-sdk-toutiao5.com^
 ||api-ad-product.huxiu.com^
 ||api-adservices.apple.com^
+||api-gd.hiaiabc.com^
 ||api.e.kuaishou.com^
 ||api.htp.hubcloud.com.cn^
 ||api.hzsanjiaomao.com^
@@ -175,6 +178,8 @@
 ||audid-api.taobao.com^
 ||audid.umeng.com^
 ||azr.footprintdns.com^
+||baichuan-sdk.alicdn.com^
+||baichuan-sdk.taobao.com^
 ||bdad.123pan.cn^
 ||bdapi-ads.realmemobile.com^
 ||bdapi-in-ads.realmemobile.com^
@@ -189,6 +194,7 @@
 ||bingads.microsoft.com^
 ||bj.ad.track.66mobi.com^
 ||books-analytics-events.apple.com^
+||browsercfg-drcn.cloud.dbankcloud.cn^
 ||bsrv.qq.com^
 ||bugly.qq.com^
 ||business-api.tiktok.com^
@@ -214,6 +220,8 @@
 ||click.googleanalytics.com^
 ||click.oneplus.cn^
 ||clog.miguvideo.com^
+||cnlogs.umeng.com^
+||cnlogs.umengcloud.com^
 ||cnzz.com^
 ||collect.kugou.com^
 ||commdata.v.qq.com^
@@ -243,6 +251,7 @@
 ||dutils.com^
 ||dxp.baidu.com^
 ||eclick.baidu.com^
+||edge.ads.twitch.tv^
 ||ef-dongfeng.tanx.com^
 ||entry.baidu.com^
 ||errlog.umeng.com^
@@ -253,13 +262,16 @@
 ||events.redditmedia.com^
 ||firebaselogging-pa.googleapis.com^
 ||flurry.com^
+||g-adnet.hiaiabc.com^
 ||g-staic.ganjingworld.com^
 ||g2.ganjing.world^
 ||game.loveota.com^
 ||gdfp.gifshow.com^
 ||gemini.yahoo.com^
 ||geo.yahoo.com^
+||getui.cn^
 ||getui.com^
+||getui.net^
 ||ggx.cmvideo.cn^
 ||ggx01.miguvideo.com^
 ||ggx03.miguvideo.com^
@@ -288,6 +300,7 @@
 ||hw.zuimeitianqi.com^
 ||hwpub-s01-drcn.cloud.dbankcloud.cn^
 ||hya.comp.360os.com^
+||hybrid.miniapp.taobao.com^
 ||hye.comp.360os.com^
 ||hyt.comp.360os.com^
 ||i.snssdk.com^
@@ -297,6 +310,7 @@
 ||iadworkbench.apple.com^
 ||ifacelog.iqiyi.com^
 ||ifs.tanx.com^
+||igexin.com^
 ||ii.gdt.qq.com^
 ||imag8.pubmatic.com^
 ||imag86.pubmatic.com^
@@ -362,6 +376,7 @@
 ||logservice1.hicloud.com^
 ||logtj.kugou.com^
 ||logupdate.avlyun.sec.miui.com^
+||m-adnet.hiaiabc.com^
 ||m.ad.zhangyue.com^
 ||m.atm.youku.com^
 ||m.kubiqq.com^
@@ -417,6 +432,7 @@
 ||outlookads.live.com^
 ||p.l.qq.com^
 ||p.s.360.cn^
+||p2p.huya.com^
 ||p3-tt.byteimg.com^
 ||pagead2.googlesyndication.com^
 ||pangolin-sdk-toutiao-b.com^
@@ -425,6 +441,7 @@
 ||pglstatp-toutiao.com^
 ||pig.pupuapi.com^
 ||pixon.ads-pixiv.net^
+||pkoplink.com^
 ||plbslog.umeng.com^
 ||pms.mb.qq.com^
 ||policy.video.ptqy.gitv.tv^
@@ -441,11 +458,13 @@
 ||res1.hubcloud.com.cn^
 ||res2.hubcloud.com.cn^
 ||res3.hubcloud.com.cn^
+||resolve.umeng.com^
 ||review.gdtimg.com^
 ||rms-drcn.platform.dbankcloud.cn^
 ||roi.soulapp.cn^
 ||rpt.gdt.qq.com^
 ||rtb.voiceads.cn^
+||s.amazon-adsystem.com^
 ||s1.qq.com^
 ||s2.qq.com^
 ||s3.qq.com^
@@ -501,6 +520,7 @@
 ||statsigapi.net^
 ||success.ctobsnssdk.com^
 ||syh-imp.cdnjtzy.com^
+||szbdyd.com^
 ||t-dsp.pinduoduo.com^
 ||t.l.qq.com^
 ||t002.ottcn.com^
