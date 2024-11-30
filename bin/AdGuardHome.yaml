@@ -96,9 +96,9 @@ statistics:
   enabled: true
 filters:
   - enabled: true
-    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_53.txt
-    name: AWAvenue Ads Rule
-    id: 1721483069
+    url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt
+    name: AWAvenue
+    id: 1732747955
 whitelist_filters: []
 user_rules: []
 dhcp:
