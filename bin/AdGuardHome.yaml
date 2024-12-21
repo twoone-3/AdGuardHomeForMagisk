@@ -50,7 +50,7 @@ dns:
   enable_dnssec: false
   edns_client_subnet:
     custom_ip: ""
-    enabled: false
+    enabled: true
     use_custom: false
   max_goroutines: 300
   handle_ddr: true
@@ -144,7 +144,7 @@ filtering:
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576
   cache_time: 30
-  filters_update_interval: 72
+  filters_update_interval: 24
   blocked_response_ttl: 10
   filtering_enabled: true
   parental_enabled: false

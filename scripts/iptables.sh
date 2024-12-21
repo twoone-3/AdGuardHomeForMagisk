@@ -8,6 +8,28 @@ ip6tables_w="ip6tables -w 64"
 
 exec >>$AGH_DIR/agh.log 2>&1
 
+intranet=(
+  0.0.0.0/8
+  10.0.0.0/8
+  100.64.0.0/10
+  127.0.0.0/8
+  169.254.0.0/16
+  172.16.0.0/12
+  192.0.0.0/24
+  192.0.2.0/24
+  192.88.99.0/24
+  192.168.0.0/16
+  198.51.100.0/24
+  203.0.113.0/24
+  224.0.0.0/4
+  240.0.0.0/4
+  255.0.0.0/4
+  255.255.255.0/24
+  255.255.255.255/32
+)
+# The use of 100.0.0.0/8 instead of 100.64.0.0/10 is purely due to a mistake by China Telecom's service provider, and you can change it back.
+intranet+=($(ip -4 a | busybox awk '/inet/ {print $2}' | busybox grep -vE "^127.0.0.1"))
+
 find_packages_uid() {
   uid_list=()
   for package in "${packages_list[@]}"; do
@@ -21,6 +43,10 @@ enable_iptables() {
   ${iptables_w} -t nat -N ADGUARD
   # return requests from AdGuardHome
   ${iptables_w} -t nat -A ADGUARD -m owner --uid-owner $adg_user --gid-owner $adg_group -j RETURN
+  # return requests from LAN
+  for subnet in ${intranet[@]} ; do
+    ${iptables_w} -t nat -A ADGUARD -d $subnet -j RETURN
+  done
   # return requests from bypassed apps
   if [ "$use_blacklist" = true ]; then
     find_packages_uid

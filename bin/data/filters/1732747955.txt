@@ -338,7 +338,6 @@
 ||hybrid.miniapp.taobao.com^
 ||hye.comp.360os.com^
 ||hyt.comp.360os.com^
-||i.snssdk.com^
 ||iad.apple.com^
 ||iadctest.qwapi.com^
 ||iadsdk.apple.com^
@@ -705,7 +704,6 @@
 ||widgets.outbrain.com^
 ||widgets.pinterest.com^
 ||win.gdt.qq.com^
-||wl.jd.com^
 ||wn.x.jd.com^
 ||ws-keyboard.shouji.sogou.com^
 ||ws.sj.qq.com^
