@@ -16,15 +16,11 @@ Follow our channel for the latest news, or join our group for discussion!
 
 # Features
 - Optional to forward local DNS requests to the local AdGuardHome server
-- Filter ads using [秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) for lightweight, power-saving, and less false positives
-- Access the AdGuardHome control panel from `https://127.0.0.1:3000`, supporting query statistics, modifying DNS upstream servers, and custom rules, etc.
+- Filter ads using [AWAvenue-Ads-Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) for lightweight, power-saving, and less false positives
+- Access the AdGuardHome control panel from `http://127.0.0.1:3000`, supporting query statistics, modifying DNS upstream servers, and custom rules, etc.
 
 # Acknowledgments
 - [AWAwenue Ads Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)
 - [akashaProxy](https://github.com/ModuleList/akashaProxy)
 - [box_for_magisk](https://github.com/taamarin/box_for_magisk)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=twoone-3/AdGuardHome&type=Date)](https://star-history.com/#twoone-3/AdGuardHome&Date)

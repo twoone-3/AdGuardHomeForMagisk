@@ -14,7 +14,7 @@
 # 特性
 - 可选将本机 DNS 请求转发到本地 AdGuardHome 服务器
 - 使用 [秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) 过滤广告，轻量，省电，少误杀
-- 可从 `https://127.0.0.1:3000` 访问 AdGuardHome 控制面板，支持查询统计，修改 DNS 上游服务器以及自定义规则等功能
+- 可从 `http://127.0.0.1:3000` 访问 AdGuardHome 控制面板，支持查询统计，修改 DNS 上游服务器以及自定义规则等功能
 
 # 教程
 - 用法教程及常见问题解答请前往 [Wiki](https://github.com/twoone-3/AdGuardHomeForMagisk/wiki) 查看
@@ -24,7 +24,3 @@
 - [AdguardHome_magisk](https://github.com/410154425/AdGuardHome_magisk)
 - [akashaProxy](https://github.com/ModuleList/akashaProxy)
 - [box_for_magisk](https://github.com/taamarin/box_for_magisk)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=twoone-3/AdGuardHome&type=Date)](https://star-history.com/#twoone-3/AdGuardHome&Date)

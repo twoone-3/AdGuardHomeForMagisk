@@ -23,20 +23,30 @@ exec >$AGH_DIR/agh.log 2>&1
   echo "enable_iptables: $enable_iptables"
 
   if [ ! -f "$MOD_PATH/disable" ]; then
-    echo "start normally"
+    echo "trying to start bin"
     $SCRIPT_DIR/service.sh start
+    if [ $? -ne 0 ]; then
+      update_description "🔴failed to start bin"
+      exit 1
+    fi
     if [ "$enable_iptables" = true ]; then
-      echo "enabling iptables"
+      echo "tyring to enable iptables"
       $SCRIPT_DIR/iptables.sh enable
-      update_description "🟢AdGuardHome is running | iptables is enabled"
+      if [ $? -ne 0 ]; then
+        update_description "🔴failed to enable iptables"
+        exit 1
+      fi
+      update_description "🟢bin is running & iptables is enabled"
     else
-      echo "don't enable iptables"
-      update_description "🟢AdGuardHome is running | iptables is disabled"
+      echo "iptables is disabled"
+      update_description "🟢bin is running & iptables is disabled"
     fi
   else
-    echo "don't start"
-    update_description "🔴AdGuardHome is stopped"
+    echo "module is disabled"
+    update_description "🔴module is disabled"
   fi
 
+  echo "starting inotifyd"
   inotifyd $SCRIPT_DIR/inotify.sh $MOD_PATH:d,n &
+  echo "inotifyd started, pid: $!"
 ) &

@@ -32,3 +32,8 @@ redir_port=5591
 # 用户组和用户，用于绕过 AdGuardHome 本身
 adg_user="root"
 adg_group="net_raw"
+
+# 绕过目的地址列表，用于绕过局域网内的请求
+ignore_dest_list=(
+  # 172.19.0.1
+)
