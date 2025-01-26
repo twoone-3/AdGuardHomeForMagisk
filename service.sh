@@ -36,10 +36,11 @@ exec >$AGH_DIR/agh.log 2>&1
         update_description "🔴failed to enable iptables"
         exit 1
       fi
-      update_description "🟢bin is running & iptables is enabled"
+      echo "iptables is enabled"
+      update_description "🟢bin is running \& iptables is enabled"
     else
       echo "iptables is disabled"
-      update_description "🟢bin is running & iptables is disabled"
+      update_description "🟢bin is running \& iptables is disabled"
     fi
   else
     echo "module is disabled"

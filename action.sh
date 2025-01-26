@@ -12,20 +12,39 @@ update_description() {
 }
 
 if [ -f "$PID_FILE" ]; then
-  echo "Stopping AdGuardHome..."
+  echo "trying to stop module"
   if [ "$enable_iptables" = true ]; then
     $SCRIPT_DIR/iptables.sh disable
+    if [ $? -ne 0 ]; then
+      update_description "🔴failed to disable iptables"
+      exit 1
+    fi
   fi
   $SCRIPT_DIR/service.sh stop
-  update_description "🔴AdGuardHome is stopped"
+  if [ $? -ne 0 ]; then
+    update_description "🔴failed to stop bin"
+    exit 1
+  fi
+  echo "module is disabled"
+  update_description "🔴module is disabled"
 else
-  echo "Starting AdGuardHome..."
+  echo "trying to start module"
   $SCRIPT_DIR/service.sh start
+  if [ $? -ne 0 ]; then
+    update_description "🔴failed to start bin"
+    exit 1
+  fi
   if [ "$enable_iptables" = true ]; then
     $SCRIPT_DIR/iptables.sh enable
-    update_description "🟢AdGuardHome is running | iptables is enabled"
+    if [ $? -ne 0 ]; then
+      update_description "🔴failed to enable iptables"
+      exit 1
+    fi
+    echo "iptables is enabled"
+    update_description "🟢bin is running \& iptables is enabled"
   else
-    update_description "🟢AdGuardHome is running | iptables is disabled"
+    echo "iptables is disabled"
+    update_description "🟢bin is running \& iptables is disabled"
   fi
 fi
 
