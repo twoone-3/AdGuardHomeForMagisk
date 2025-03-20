@@ -90,7 +90,9 @@ if [ -d "$AGH_DIR" ]; then
 else
   i18n_print "- First time installation, extracting files..." "- 第一次安装，正在解压文件..."
   mkdir -p "$AGH_DIR" "$BIN_DIR" "$SCRIPT_DIR"
+  i18n_print "- Extracting script files..." "- 正在解压脚本文件..."
   unzip -o "$ZIPFILE" "scripts/*" -d $AGH_DIR >/dev/null 2>&1
+  i18n_print "- Extracting binary files..." "- 正在解压二进制文件..."
   unzip -o "$ZIPFILE" "bin/*" -d $AGH_DIR >/dev/null 2>&1
 fi
 

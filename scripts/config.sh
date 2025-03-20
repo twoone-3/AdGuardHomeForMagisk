@@ -37,3 +37,8 @@ adg_group="net_raw"
 ignore_dest_list=(
   # 172.19.0.1
 )
+
+# 绕过源地址列表，用于绕过局域网内的请求
+ignore_src_list=(
+  # 127.0.0.1
+)

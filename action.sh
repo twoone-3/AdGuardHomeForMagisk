@@ -49,5 +49,4 @@ else
 fi
 
 echo "Waiting for 1 second..."
-echo "Refresh the page to see the changes."
 sleep 1

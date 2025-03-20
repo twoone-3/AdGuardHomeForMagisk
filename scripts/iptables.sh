@@ -27,6 +27,12 @@ enable_iptables() {
       ${iptables_w} -t nat -A ADGUARD -d $subnet -j RETURN
     done
   fi
+  # return requests from ignore_src_list
+  if [ $ignore_src_list ]; then
+    for subnet in ${ignore_src_list[@]}; do
+      ${iptables_w} -t nat -A ADGUARD -s $subnet -j RETURN
+    done
+  fi
   # return requests from bypassed apps
   if [ "$use_blacklist" = true ]; then
     find_packages_uid
