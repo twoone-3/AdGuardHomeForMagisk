@@ -29,7 +29,9 @@ dns:
   bootstrap_dns:
     - 223.5.5.5
     - 119.29.29.29
-  fallback_dns: []
+  fallback_dns:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
   upstream_mode: load_balance
   fastest_timeout: 1s
   allowed_clients: []
@@ -41,9 +43,9 @@ dns:
   trusted_proxies:
     - 127.0.0.0/8
     - ::1/128
-  cache_size: 67108864
+  cache_size: 4194304
   cache_ttl_min: 0
-  cache_ttl_max: 0
+  cache_ttl_max: 86400
   cache_optimistic: true
   bogus_nxdomain: []
   aaaa_disabled: false
@@ -57,9 +59,9 @@ dns:
   ipset: []
   ipset_file: ""
   bootstrap_prefer_ipv6: false
-  upstream_timeout: 10s
+  upstream_timeout: 5s
   private_networks: []
-  use_private_ptr_resolvers: false
+  use_private_ptr_resolvers: true
   local_ptr_upstreams: []
   use_dns64: false
   dns64_prefixes: []
@@ -144,7 +146,7 @@ filtering:
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576
   cache_time: 30
-  filters_update_interval: 24
+  filters_update_interval: 72
   blocked_response_ttl: 10
   filtering_enabled: true
   parental_enabled: false
@@ -154,7 +156,7 @@ clients:
   runtime_sources:
     whois: true
     arp: true
-    rdns: false
+    rdns: true
     dhcp: true
     hosts: true
   persistent: []
