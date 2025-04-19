@@ -13,10 +13,21 @@ exec >$AGH_DIR/agh.log 2>&1
 (
   wait_time=0
   while [ "$(getprop init.svc.bootanim)" != "stopped" ]; do
-    echo "Waiting for system to finish booting... ($wait_time)"
-    sleep 3
-    wait_time=$((wait_time + 3))
+    echo "Waiting for system to finish booting... ($wait_time s)"
+    sleep 5
+    wait_time=$((wait_time + 5))
   done
+
+  boot_delay=$(grep "^boot_delay=" "$AGH_DIR/scripts/config.sh" | sed 's/^boot_delay=//')
+  echo "boot_delay: $boot_delay s"
+  if [ "$boot_delay" -lt 0 ]; then
+    echo "boot_delay must be greater than or equal to 0"
+    update_description "🔴boot_delay must be greater than or equal to 0"
+    exit 1
+  elif [ "$boot_delay" -gt 0 ]; then
+    echo "Waiting for $boot_delay s..."
+    sleep "$boot_delay"
+  fi
 
   enable_iptables=false
   enable_iptables=$(grep "^enable_iptables=" "$AGH_DIR/scripts/config.sh" | sed 's/^enable_iptables=//')

@@ -1,15 +1,15 @@
-# AdGuardHome For Magisk Wiki
+# AdGuardHome For Root Wiki
 
 ## 简易教程
 
-点击 [Release](https://github.com/twoone-3/AdGuardHomeForMagisk/releases/latest/download/AdGuardHomeForMagisk_arm64.zip) 下载模块  
+点击 [Release](https://github.com/twoone-3/AdGuardHomeForRoot/releases/latest) 下载模块  
 在 root 管理器中安装模块，重启后无需配置即可实现广告屏蔽
 
 ## 详细教程
 
 ### 1. 安装
 
-本模块仅适用于已经 root 的安卓设备，支持 Magisk/KernelSU 等 root 方案  
+本模块仅适用于已经 root 的安卓设备，支持 Magisk / KernelSU / APatch  
 在 Release 页面下载 zip 文件，提供了 arm64 和 armv7 两个版本，一般推荐使用 arm64 版  
 在 root 管理器中安装模块，重启即可生效，注意要在设置里关闭 `私人/专用dns`  
 
@@ -73,7 +73,3 @@ dns:
   nameserver:
     - 127.0.0.1:5591
 ```
-
-## 结尾的话
-
-> 恭喜你阅读完了本 Wiki，如果有什么好的建议，可加入[Telegram群](https://t.me/+mdZL11mJjxhkYjdl)来讨论，另外本模块是 [秋风广告规则](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) 官方模块，秋风规则是轻量、精准、高效的广告规则，也请有能力的朋友多多贡献

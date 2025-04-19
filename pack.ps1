@@ -58,8 +58,8 @@ foreach ($url in $UrlWitchCachePath.Keys) {
 # 给项目打包，使用 7-Zip 压缩 zip
 Write-Host "Packing AdGuardHome..."
 $7z = "C:\Program Files\7-Zip\7z.exe"
-$OutputPathArm64 = "$CacheDir\AdGuardHomeForMagisk_arm64.zip"
-$OutputPathArmv7 = "$CacheDir\AdGuardHomeForMagisk_armv7.zip"
+$OutputPathArm64 = "$CacheDir\AdGuardHomeForRoot_arm64.zip"
+$OutputPathArmv7 = "$CacheDir\AdGuardHomeForRoot_armv7.zip"
 if (Test-Path -Path $OutputPathArm64) {
   Remove-Item -Path $OutputPathArm64
 }

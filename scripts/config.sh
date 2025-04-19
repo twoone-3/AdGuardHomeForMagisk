@@ -26,6 +26,9 @@ use_blacklist=true
 # 例如: ("com.tencent.mm" "com.tencent.mobileqq")
 packages_list=()
 
+# 启动延迟时间，单位为秒
+boot_delay=0
+
 # 重定向端口，请与 ADGuardHome 的设置保持一致
 redir_port=5591
 
