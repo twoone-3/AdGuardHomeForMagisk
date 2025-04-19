@@ -8,8 +8,8 @@ A Magisk/KernelSU/APatch module to block ads by redirecting and filtering DNS re
 ![arm-v7 support](https://img.shields.io/badge/arm--v7-support-ffa500?style=flat&logo=linux&logoColor=white&color=ffa500)
 ![GitHub downloads](https://img.shields.io/github/downloads/twoone-3/AdguardHome/total?style=flat&logo=github&logoColor=white&color=ffd166)
 ![License](https://img.shields.io/badge/License-MIT-9b5de5?style=flat&logo=opensourceinitiative&logoColor=white)
-[![Join Telegram Channel](https://img.shields.io/badge/Telegram-Join%20Channel-06d6a0?style=flat&logo=telegram&logoColor=white)](https://t.me/adguardhome_for_magisk_release)
-[![Join Telegram Group](https://img.shields.io/badge/Telegram-Join%20Group-118ab2?style=flat&logo=telegram&logoColor=white)](https://t.me/+mdZL11mJjxhkYjdl)
+[![Join Telegram Channel](https://img.shields.io/badge/Telegram-Join%20Channel-06d6a0?style=flat&logo=telegram&logoColor=white)](https://t.me/twoone3_tech_tips)
+[![Join Telegram Group](https://img.shields.io/badge/Telegram-Join%20Group-118ab2?style=flat&logo=telegram&logoColor=white)](https://t.me/twoone3_tech_tips_group)
 
 Follow our channel for the latest news, or join our group for discussion!
 
